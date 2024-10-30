@@ -1,0 +1,5 @@
+======================
+medialog.notifications
+======================
+
+User documentation

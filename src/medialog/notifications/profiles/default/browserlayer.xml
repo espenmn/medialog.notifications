@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+  <layer
+      name="medialog.notifications"
+      interface="medialog.notifications.interfaces.IMedialogNotificationsLayer"
+      />
+</layers>
