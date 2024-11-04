@@ -1,3 +1,5 @@
 <div class="days_to_conf">
     ${view/message}
+    Notifications will go here, or it should link to a page for notifications.
+    Maybe add a menu for 'Notifications'
 </div>
