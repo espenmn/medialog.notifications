@@ -8,7 +8,7 @@
 
   <browser:page
     name="notifications-view"
-    for="PloneSiteRoot"
+    for="plone.base.interfaces.IPloneSiteRoot"
     class=".notifications_view.NotificationsView"
     template="notifications_view.pt"
     permission="zope2.View"

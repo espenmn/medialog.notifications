@@ -6,11 +6,11 @@ from plone.dexterity.content import Item
 from plone.supermodel import model
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
-# from zope import schema
+from zope import schema
 from zope.interface import implementer
 
 
-# from medialog.notifications import _
+from medialog.notifications import _
 
 
 class INotification(model.Schema):
@@ -21,33 +21,27 @@ class INotification(model.Schema):
 
     # model.load('notification.xml')
 
-    # directives.widget(level=RadioFieldWidget)
-    # level = schema.Choice(
-    #     title=_(u'Sponsoring Level'),
-    #     vocabulary=LevelVocabulary,
-    #     required=True
-    # )
 
-    # text = RichText(
-    #     title=_(u'Text'),
-    #     required=False
-    # )
+    message = schema.TextLine(
+        title=_("Message"),
+        description=_("The message to send to the user."),
+        required=True,
+    )
 
-    # url = schema.URI(
-    #     title=_(u'Link'),
-    #     required=False
-    # )
-
-    # fieldset('Images', fields=['logo', 'advertisement'])
-    # logo = namedfile.NamedBlobImage(
-    #     title=_(u'Logo'),
-    #     required=False,
-    # )
-
-    # advertisement = namedfile.NamedBlobImage(
-    #     title=_(u'Advertisement (Gold-sponsors and above)'),
-    #     required=False,
-    # )
+    message_type = schema.Choice(
+        title=_("Message type"),
+        description=_("Select the type of message to display."),
+        values=("info", "warning", "error"),
+        required=True,
+        default="info",
+    )
+    
+    message_read = schema.Bool(
+        title=_("Mark message as read"),
+        required=False,
+    )
+    
+    
 
     # directives.read_permission(notes='cmf.ManagePortal')
     # directives.write_permission(notes='cmf.ManagePortal')
