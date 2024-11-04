@@ -17,7 +17,7 @@
 
   <browser:page
     name="notification-view"
-    for="Notification"
+    for="medialog.notifications.content.notification.Notification"
     class=".notification_view.NotificationView"
     template="notification_view.pt"
     permission="zope2.View"

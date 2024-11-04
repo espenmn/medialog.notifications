@@ -46,4 +46,6 @@
 
   <include package=".viewlets" />
 
+  <include package=".contentrules" />
+
 </configure>

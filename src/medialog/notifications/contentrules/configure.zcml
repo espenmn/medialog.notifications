@@ -13,21 +13,21 @@
   <browser:page
       name="plone.actions.NotifyAdd"
       for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
-      class=".notify.NotifyAddAddFormView"
+      class=".notifyadd.NotifyAddAddFormView"
       permission="plone.app.contentrules.ManageContentRules"
       />
 
   <browser:page
       name="edit"
-      for="plone.app.contentrules.actions.notifyadd.INotifyAddAction"
-      class=".notify.NotifyAddEditFormView"
+      for="medialog.notifications.contentrules.notifyadd.INotifyAddAction"
+      class=".notifyadd.NotifyAddEditFormView"
       permission="plone.app.contentrules.ManageContentRules"
       />
 
   <plone:ruleAction
       name="plone.actions.NotifyAdd"
-      title="Create Content to Notify user"
-      description="Saves a portal message to the user"
+      title="Create Content to Notify users"
+      description="Saves a portal message"
       for="*"
       event="*"
       schema=".notifyadd.INotifyAddAction"

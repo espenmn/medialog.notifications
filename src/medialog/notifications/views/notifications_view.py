@@ -19,3 +19,13 @@ class NotificationsView(BrowserView):
     def __call__(self):
         # Implement your own actions:
         return self.index()
+    
+    
+    #TO DO, cache (?)
+    def get_items(self):
+        return self.context.portal_catalog(portal_type=['Notification'])
+        
+    # def batch(self):
+    #     batch = self.context.restrictedTraverse('@@contentlisting')(sort_on='sortable_title', batch=True, b_size=40);
+    #     return batch
+        
