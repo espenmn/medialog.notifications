@@ -18,7 +18,6 @@ class INotification(model.Schema):
     """
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
-
     # model.load('notification.xml')
 
 
@@ -36,20 +35,27 @@ class INotification(model.Schema):
         default="info",
     )
     
+    message_users = schema.Set(
+        title=_("label_notify_users", default="Notify users"),
+        description="",
+        required=False,
+        value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
+    )
+    
     message_read = schema.Bool(
         title=_("Mark message as read"),
         required=False,
     )
     
-    
-
     # directives.read_permission(notes='cmf.ManagePortal')
     # directives.write_permission(notes='cmf.ManagePortal')
-    # notes = RichText(
-    #     title=_(u'Secret Notes (only for site-admins)'),
-    #     required=False
-    # )
-
+    # TO DO: Hide field (at least for 'normal users')
+    message_read = schema.Bool(
+        title=_("Mark message as read"),
+        required=False,
+        
+    )
+ 
 
 @implementer(INotification)
 class Notification(Item):

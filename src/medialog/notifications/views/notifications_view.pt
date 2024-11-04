@@ -18,12 +18,15 @@
             </svg>
             <strong>${message_type}</strong>
               ${obj/message}
+              ${obj/message_users}xxxxx
           </div>
           <div class="padding-10">
            <p class="padmar-0">✔ Read</p>
            <p class="padmar-0"><a href="${item/getURL}/delete_confirmation">␡ Delete</a></p>
 
           </div>
+
+          <!-- ${obj/message_users} -->
 
         </div>
       </div>

@@ -31,9 +31,28 @@ class INotifyAddAction(Interface):
         required=True,
         default="info",
     )
+        
+    message_users = schema.Set(
+        title=_("label_notify_users", default="Notify users"),
+        description="",
+        required=False,
+        value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
+    )
     
-    # Probably need user or group here
-
+    # message_groups = schema.Set(
+    #     title=_("label_notify_groups", default="Notify groups"),
+    #     description="",
+    #     required=False,
+    #     value_type=schema.Choice(vocabulary="plone.app.users.group_ids"),
+    # )
+    
+    message_read = schema.Bool(
+        title=_("Mark message as read"),
+        required=False,
+        
+    )
+    
+    
 
 @implementer(INotifyAddAction, IRuleElementData)
 class NotifyAddAction(SimpleItem):

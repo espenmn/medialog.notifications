@@ -14,6 +14,7 @@
             </svg>
             <strong>${message_type}</strong>
               ${context/message}
+              <!-- ${context/message_users} -->
           </div>
 
         </tal:define>
