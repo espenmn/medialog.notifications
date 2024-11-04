@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="medialog.notifications">
+
+ <!-- -*- extra stuff goes here -*- -->
+
+  <include file="message_users_index.zcml" />
+
+
+</configure>

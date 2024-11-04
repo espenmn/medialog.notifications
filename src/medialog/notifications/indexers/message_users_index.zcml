@@ -1,0 +1,9 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <adapter factory=".message_users_index.dummy"
+    name="message_users_index" />
+
+  <adapter factory=".message_users_index.message_users_index"
+    name="message_users_index" />
+
+</configure>
