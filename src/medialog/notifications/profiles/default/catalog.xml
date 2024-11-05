@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <object name="portal_catalog">
-  <index name="message_users" meta_type="KeywordIndex">
+  <!-- <index name="message_users" meta_type="KeywordIndex">
     <indexed_attr value="message_users"/>
-  </index>
+  </index> -->
   <index name="message_read" meta_type="FieldIndex">
     <indexed_attr value="message_read"/>
   </index>
-  <column value="message_users"/>
+  <!-- <column value="message_users"/> -->
   <column value="message_read"/>
 </object>

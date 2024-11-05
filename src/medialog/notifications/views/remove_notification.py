@@ -4,7 +4,7 @@ from Products.Five.browser import BrowserView
 from zope.interface import Interface
 from plone import api
 from plone.protect.utils import safeWrite
-
+import transaction
 
 class IRemoveNotification(Interface):
     """ Marker Interface for IRemoveNotification"""
@@ -22,15 +22,16 @@ class RemoveNotification(BrowserView):
         user = api.user.get_current()
         item = self.request.get('item')
         obj  = api.content.get(UID=item) 
-        userid = f'user:{user.id}'
-        if userid in obj.message_users:
+        if obj.message_read != None and user.id in obj.message_read:
             safeWrite(obj, self.request)
-            obj.message_users = obj.message_users.remove(userid)
-            if obj.message_read == None:
-                [userid]
-            else:    
-                obj.message_read.append(user.id)
-        
+            readerlist = obj.message_read.remove(user.id)
+            obj.message_read = readerlist or []
+            obj.reindexObject('message_read')
+            
+        # if obj.message_read == None or obj.message_read == []:
+        #     pass
+        #     #delete object / redirect to delete page ??
+            
         self.request.response.redirect(self.request.get_header("referer"))
         # return True
 

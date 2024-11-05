@@ -4,7 +4,7 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
-  <include file="message_users_index.zcml" />
+  <!-- <include file="message_users_index.zcml" /> -->
 
 
 </configure>

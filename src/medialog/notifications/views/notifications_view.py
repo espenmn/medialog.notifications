@@ -20,31 +20,25 @@ class NotificationsView(BrowserView):
         # Implement your own actions:
         return self.index()
     
-    #TO DO, cache (?)
-    def get_user(self):
-        user = api.user.get_current()
-        user_id = user.getId()
+    # #TO DO, cache (?)
+    # def get_user(self):
+    #     user = api.user.get_current()
+    #     user_id = user.getId()
         
-        if user_id:
-            return user_id
+    #     if user_id:
+    #         return user_id
         
-        #TO DO: What do we do for 'anon'?
-        return 'anon'
+    #     #TO DO: What do we do for 'anon'?
+    #     return 'anon'
     
         
     
     #TO DO, cache (?)
     def get_items(self):
-        #TO Do: search for 'principal'
+        # user = self.get_user()
         # Not filter in template
-        #user = api.user.get_current()
-        user_id = self.get_user()
+        user = api.user.get_current()
         
-        return self.context.portal_catalog(portal_type=['Notification'], message_users=user_id)
+        return self.context.portal_catalog(portal_type=['Notification'], message_read=user.id)
         
-        #return self.context.portal_catalog(portal_type=['Notification'], message_users=user_id, sort_on="message_read")
-        
-    # def batch(self):
-    #     batch = self.context.restrictedTraverse('@@contentlisting')(sort_on='sortable_title', batch=True, b_size=40);
-    #     return batch
         

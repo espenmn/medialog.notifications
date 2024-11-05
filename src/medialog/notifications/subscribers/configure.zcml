@@ -4,8 +4,8 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
-  <subscriber for="plone.dexterity.interfaces.IDexterityContent
-                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+  <subscriber for="medialog.notifications.content.notification.INotification
+                   zope.lifecycleevent.interfaces.IObjectAddedEvent"
               handler=".notification_added.handler"
               />
 
