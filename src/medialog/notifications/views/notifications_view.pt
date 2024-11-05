@@ -18,7 +18,8 @@
         <div tal:define="obj python:item.getObject(); 
         message_type obj/message_type|None; 
         current_user view/get_user;
-        read python: obj.message_read or []"  
+        read python: obj.message_read or []"
+        tal:condition="python: current_user not in read"  
         class="flex flex-wrap read-${python: current_user in read}" >
           <div class="flex-grow-1 portalMessage statusmessage statusmessage-${message_type} alert alert-${message_type}" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plone-icon statusmessage-icon mb-1 me-2 bi bi-${message_type}-circle-fill" viewBox="0 0 16 16" aria-labelledby="title">
@@ -31,7 +32,7 @@
           <div class="padding-10">
            <p class="padmar-0"><a class="button btn btn-secondary pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/delete_confirmation">Delete</a></p>
            <p tal:condition="python: current_user not in read">
-              <a class="xpat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/@remove_notification?item={item/id}">✔ Mark Read</a>
+              <a class="xpat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/remove-notification?item=${item/UID}">✔ Mark Read</a>
            </p>
            <!-- <button class="update-field" data-item-id="${item/id}" data-field-value="current_user">Update Field</button> -->
 

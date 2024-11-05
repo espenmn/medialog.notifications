@@ -42,7 +42,9 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
-  <include package=".api" />
+  <include package=".subscribers" />
+
+  <!-- <include package=".api" /> -->
 
   <include package=".indexers" />
 
