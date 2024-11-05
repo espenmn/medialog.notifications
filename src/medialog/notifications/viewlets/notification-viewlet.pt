@@ -1,5 +1,5 @@
-<div class="days_to_conf">
-    ${view/message}
-    Notifications will go here, or it should link to a page for notifications.
-    Maybe add a menu for 'Notifications'
+<div tal:define="portal_state context/@@plone_portal_state" 
+    tal:condition="view/count_items" class="portalMessage statusmessage statusmessage-info alert alert-info">
+    <a title="see noticitions" href="${portal_state/portal_url}/notifications-view">You have <b>${view/count_items}</b> notifications. <b>Click to see</b></a>
 </div>
+ 

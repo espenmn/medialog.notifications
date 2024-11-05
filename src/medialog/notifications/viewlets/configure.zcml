@@ -8,8 +8,8 @@
 
   <browser:viewlet
      name="notification-viewlet"
-     for="plone.app.contenttypes.interfaces.IDocument"
-     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+     for="plone.base.interfaces.IPloneSiteRoot"
+     manager="plone.app.layout.viewlets.interfaces.IGlobalStatusMessage"
      layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
      class=".notification_viewlet.NotificationViewlet"
      template="notification-viewlet.pt"

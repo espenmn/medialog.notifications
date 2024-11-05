@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # from plone.app.textfield import RichText
-# from plone.autoform import directives
+from plone.autoform import directives
 from plone.dexterity.content import Item
 # from plone.namedfile import field as namedfile
 from plone.supermodel import model
@@ -20,13 +20,14 @@ class INotification(model.Schema):
     # and customize it in Python:
     # model.load('notification.xml')
 
-
+    # directives.write_permission(message='cmf.ManagePortal')
     message = schema.TextLine(
         title=_("Message"),
         description=_("The message to send to the user."),
         required=True,
     )
 
+    # directives.write_permission(message_type='cmf.ManagePortal')
     message_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),
@@ -35,6 +36,7 @@ class INotification(model.Schema):
         default="info",
     )
     
+    # directives.write_permission(message_users='cmf.ManagePortal')
     message_users = schema.Set(
         title=_("label_notify_users", default="Notify users"),
         description="",
@@ -42,20 +44,16 @@ class INotification(model.Schema):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
     )
     
-    message_read = schema.Bool(
+    # directives.write_permission(message_read='cmf.ManagePortal')
+    message_read = schema.List(
         title=_("Mark message as read"),
         required=False,
+        value_type=schema.TextLine(),
+        default=[],
+        missing_value=[]
     )
     
-    # directives.read_permission(notes='cmf.ManagePortal')
-    # directives.write_permission(notes='cmf.ManagePortal')
-    # TO DO: Hide field (at least for 'normal users')
-    message_read = schema.Bool(
-        title=_("Mark message as read"),
-        required=False,
-        
-    )
- 
+    
 
 @implementer(INotification)
 class Notification(Item):

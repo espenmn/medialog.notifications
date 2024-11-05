@@ -3,33 +3,9 @@
 # from medialog.notifications import _
 from Products.Five.browser import BrowserView
 from zope.interface import Interface
-# from plone import api
-# from Products.CMFCore.utils import getToolByName
-
-# def is_current_user_in_principals(context, principals):
-#     # Get the current user
-#     user = api.user.get_current()
-#     user_id = user.getId()
-    
-#     # Get the groups tool
-#     portal_groups = getToolByName(context, 'portal_groups')
-    
-#     # Check if the current user is in the selected principals
-#     if user_id in principals:
-#         return True
-    
-#     # Check if the user is in any of the selected groups
-#     # Probably better to search for 'users groups'
-#     user_groups = portal_groups.getGroupsByUserId(user_id)
-#     user_group_ids = [group.getId() for group in user_groups]
-    
-#     # If any selected principal matches a group the user is in, return True
-#     if any(group_id in principals for group_id in user_group_ids):
-#         return True
-
-
-# from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+from plone import api
+ 
+ 
 
 class INotificationsView(Interface):
     """ Marker Interface for INotificationsView"""
@@ -44,14 +20,29 @@ class NotificationsView(BrowserView):
         # Implement your own actions:
         return self.index()
     
+    #TO DO, cache (?)
+    def get_user(self):
+        user = api.user.get_current()
+        user_id = user.getId()
+        
+        if user_id:
+            return user_id
+        
+        #TO DO: What do we do for 'anon'?
+        return 'anon'
+    
+        
     
     #TO DO, cache (?)
     def get_items(self):
         #TO Do: search for 'principal'
         # Not filter in template
-        user = api.user.get_current()
-        user_id = user.getId()
+        #user = api.user.get_current()
+        user_id = self.get_user()
+        
         return self.context.portal_catalog(portal_type=['Notification'], message_users=user_id)
+        
+        #return self.context.portal_catalog(portal_type=['Notification'], message_users=user_id, sort_on="message_read")
         
     # def batch(self):
     #     batch = self.context.restrictedTraverse('@@contentlisting')(sort_on='sortable_title', batch=True, b_size=40);

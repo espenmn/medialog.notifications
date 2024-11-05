@@ -10,6 +10,7 @@ from zope import schema
 from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
+from plone import api
 
 
 class INotifyAddAction(Interface):
@@ -39,18 +40,13 @@ class INotifyAddAction(Interface):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
     )
     
-    # message_groups = schema.Set(
-    #     title=_("label_notify_groups", default="Notify groups"),
-    #     description="",
-    #     required=False,
-    #     value_type=schema.Choice(vocabulary="plone.app.users.group_ids"),
-    # )
-    
-    message_read = schema.Bool(
+    message_read = schema.List(
         title=_("Mark message as read"),
         required=False,
+        value_type=schema.TextLine(),
         
     )
+    
     
     
 
@@ -90,9 +86,22 @@ class NotifyAddActionExecutor:
         request = self.context.REQUEST
         message = _(self.element.message)
         message_type = self.element.message_type
-        IStatusMessage(request).addStatusMessage(message, type=message_type)
+        message_users = self.element.message_users
+        portal = api.portal.get()
+        
         #TO DO: Should we both add notify or should be just save it.
-
+        obj = api.content.create(
+            type='Notification',
+            title='Notification',
+            message = message,
+            message_type = message_type,
+            message_users = message_users,
+            message_read = [],
+            container=portal
+        )
+        
+        IStatusMessage(request).addStatusMessage(message, type=message_type)
+        
         return True
 
 

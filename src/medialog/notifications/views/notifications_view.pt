@@ -3,14 +3,23 @@
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="medialog.notifications" metal:use-macro="context/main_template/macros/master">
   <body>
-    <metal:content-core fill-slot="content-core">
+    <metal:content-core fill-slot="content">
       <metal:block define-macro="content-core">
 
       <h1>My Notifications</h1>
-      <p>TO DO, show only 'assigned to me'</p>
+      <!-- <p>TO DO, show only 'assigned to me'</p> -->
       <p>TO DO: change icons</p>
+      <p>TO DO: add link to 'mark as read'</p>
+      <p>TO DO: Should only be possible to delete if it is 'only for me'</p>
+       
+
       <div tal:repeat="item python:view.get_items()">
-        <div class="flex flex-wrap" tal:define="obj python:item.getObject(); message_type obj/message_type|None">
+      
+        <div tal:define="obj python:item.getObject(); 
+        message_type obj/message_type|None; 
+        current_user view/get_user;
+        read python: obj.message_read or []"  
+        class="flex flex-wrap read-${python: current_user in read}" >
           <div class="flex-grow-1 portalMessage statusmessage statusmessage-${message_type} alert alert-${message_type}" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plone-icon statusmessage-icon mb-1 me-2 bi bi-${message_type}-circle-fill" viewBox="0 0 16 16" aria-labelledby="title">
               <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"></path>
@@ -18,14 +27,14 @@
             </svg>
             <strong>${message_type}</strong>
               ${obj/message}
-              ${obj/message_users}xxxxx
           </div>
           <div class="padding-10">
-           <p class="padmar-0">✔ Read</p>
-           <p class="padmar-0"><a href="${item/getURL}/delete_confirmation">␡ Delete</a></p>
+           <p class="padmar-0"><a class="button btn btn-secondary pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/delete_confirmation">Delete</a></p>
+           <p tal:condition="python: current_user not in read">
+              <a class="pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/edit">✔ Mark Read</a>
+           </p>
 
           </div>
-
           <!-- ${obj/message_users} -->
 
         </div>
@@ -33,9 +42,11 @@
       <style>
         .flex {display: flex}
         .flex-wrap {flex-wrap: wrap}
+        .flex .padding-10 {flex-grow: 0}
         .flex-grow-1 {flex-grow: 1}
-        .padding-10 {padding: 10px;}
+        .padding-10 {padding-left: 10px;}
         p.padmar-0 {padding: 0; margin:0 }
+        .read-True .portalMessage {opacity: 0.35}
       </style>
       </metal:block>
     </metal:content-core>
