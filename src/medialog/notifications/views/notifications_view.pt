@@ -31,8 +31,9 @@
           <div class="padding-10">
            <p class="padmar-0"><a class="button btn btn-secondary pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/delete_confirmation">Delete</a></p>
            <p tal:condition="python: current_user not in read">
-              <a class="pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/edit">✔ Mark Read</a>
+              <a class="xpat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/@remove_notification?item={item/id}">✔ Mark Read</a>
            </p>
+           <!-- <button class="update-field" data-item-id="${item/id}" data-field-value="current_user">Update Field</button> -->
 
           </div>
           <!-- ${obj/message_users} -->

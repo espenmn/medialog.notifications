@@ -2,12 +2,12 @@
   xmlns="http://namespaces.zope.org/zope"
   xmlns:plone="http://namespaces.plone.org/plone">
 
-  <adapter factory=".get.RemoveNotification" name="remove_notification"/>
+  <adapter factory=".patch.RemoveNotification" name="remove_notification"/>
 
   <plone:service
-    method="GET"
+    method="PATCH"
     for="zope.interface.Interface"
-    factory=".get.RemoveNotificationGet"
+    factory=".patch.RemoveNotificationGet"
     name="@remove_notification"
     permission="zope2.View"
     />
