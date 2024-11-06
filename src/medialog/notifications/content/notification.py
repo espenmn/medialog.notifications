@@ -21,7 +21,7 @@ class INotification(model.Schema):
     # model.load('notification.xml')
 
     # directives.write_permission(message='cmf.ManagePortal')
-    message = schema.TextLine(
+    message = schema.Text(
         title=_("Message"),
         description=_("The message to send to the user."),
         required=True,

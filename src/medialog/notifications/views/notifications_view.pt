@@ -9,7 +9,7 @@
 
           <h1>My Notifications</h1>
           <!-- <p>TO DO, show only 'assigned to me'</p> -->
-          <p>TO DO: Should only be possible to delete if it is 'only for me'</p>
+          <!-- <p>TO DO: Should only be possible to delete if it is 'only for me'</p> -->
 
 
           <div tal:repeat="item python:view.get_items()">

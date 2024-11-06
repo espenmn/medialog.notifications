@@ -12,6 +12,10 @@ from zope.interface import implementer
 from zope.interface import Interface
 from plone import api
 
+from plone.stringinterp.interfaces import IStringInterpolator
+
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
 
 class INotifyAddAction(Interface):
     """Interface for the configurable aspects of a notify action.
@@ -19,9 +23,9 @@ class INotifyAddAction(Interface):
     This is also used to create add and edit forms, below.
     """
 
-    message = schema.TextLine(
+    message = schema.Text(
         title=_("Message"),
-        description=_("The message to send to the user."),
+        description=_("The message shown to the user. NOTE: You can use  '${}' variables from"),
         required=True,
     )
 
@@ -40,12 +44,12 @@ class INotifyAddAction(Interface):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
     )
     
-    message_read = schema.List(
-        title=_("Mark message as read"),
-        required=False,
-        value_type=schema.TextLine(),
+    # message_read = schema.List(
+    #     title=_("Mark message as read"),
+    #     required=False,
+    #     value_type=schema.TextLine(),
         
-    )
+    # )
     
     
     
@@ -84,10 +88,11 @@ class NotifyAddActionExecutor:
 
     def __call__(self):
         request = self.context.REQUEST
-        message = _(self.element.message)
+        portal = api.portal.get()
+        org_message = _(self.element.message)
+        message = IStringInterpolator(self.context)(org_message)
         message_type = self.element.message_type
         message_users = self.element.message_users
-        portal = api.portal.get()
         
         #TO DO: Should we both add notify or should be just save it.
         obj = api.content.create(
@@ -113,6 +118,8 @@ class NotifyAddAddForm(ActionAddForm):
     description = _("A notify action saves a message to the user.")
     form_name = _("Configure element")
     Type = NotifyAddAction
+    
+    template = ViewPageTemplateFile("templates/notification.pt")
 
 
 class NotifyAddAddFormView(ContentRuleFormWrapper):
@@ -129,6 +136,8 @@ class NotifyAddEditForm(ActionEditForm):
     label = _("Edit NotifyAdd Action")
     description = _("A notify action can show a message to the user.")
     form_name = _("Configure element")
+    
+    template = ViewPageTemplateFile("templates/notification.pt")
 
 
 class NotifyAddEditFormView(ContentRuleFormWrapper):
