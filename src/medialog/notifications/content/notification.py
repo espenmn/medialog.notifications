@@ -8,6 +8,7 @@ from plone.supermodel import model
 # from z3c.form.browser.radio import RadioFieldWidget
 from zope import schema
 from zope.interface import implementer
+from plone.app.textfield import RichText
 
 
 from medialog.notifications import _
@@ -21,10 +22,11 @@ class INotification(model.Schema):
     # model.load('notification.xml')
 
     # directives.write_permission(message='cmf.ManagePortal')
-    message = schema.Text(
+    message = RichText(
         title=_("Message"),
         description=_("The message to send to the user."),
         required=True,
+         max_length=500,
     )
 
     # directives.write_permission(message_type='cmf.ManagePortal')
@@ -44,10 +46,10 @@ class INotification(model.Schema):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
     )
     
-    # directives.write_permission(message_read='cmf.ManagePortal')
-    directives.mode(message_read='hidden')
-    message_read = schema.List(
-        title=_("Mark message as read"),
+    
+    # directives.mode(assigned_to='hidden')
+    assigned_to = schema.List(
+        title=_("Assigned to (who should see this)"),
         required=False,
         value_type=schema.TextLine(),
         default=[],

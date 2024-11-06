@@ -23,4 +23,9 @@ def handler(obj, event):
     userset =  set(users)
 
 
-    obj.message_read = list(userset)
+    obj.assigned_to = list(userset)
+    # import pdb; pdb.set_trace()
+    # obj.reindexObject('assigned_to')
+    
+    # return True
+    

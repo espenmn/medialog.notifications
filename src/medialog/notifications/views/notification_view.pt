@@ -14,7 +14,7 @@
               <title>statusmessage_mtype_message_type</title>
             </svg>
             <strong>${message_type}</strong>
-              ${context/message}
+            <div tal:replace="structure obj/message/output|None" />
               <!-- ${context/message_users} -->
           </div>
 

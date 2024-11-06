@@ -3,9 +3,9 @@
   <!-- <index name="message_users" meta_type="KeywordIndex">
     <indexed_attr value="message_users"/>
   </index> -->
-  <index name="message_read" meta_type="KeywordIndex">
-    <indexed_attr value="message_read"/>
+  <index name="assigned_to" meta_type="KeywordIndex">
+    <indexed_attr value="assigned_to"/>
   </index>
   <!-- <column value="message_users"/> -->
-  <column value="message_read"/>
+  <column value="assigned_to"/>
 </object>

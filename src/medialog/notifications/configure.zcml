@@ -46,7 +46,7 @@
 
   <!-- <include package=".api" /> -->
 
-  <include package=".indexers" />
+  <!-- <include package=".indexers" /> -->
 
   <include package=".views" />
 

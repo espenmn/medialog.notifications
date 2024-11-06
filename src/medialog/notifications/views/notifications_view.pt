@@ -23,10 +23,10 @@
                   <title>statusmessage_mtype_message_type</title>
                 </svg>
                 <strong>${message_type}</strong>
-                                ${obj/message}
+                 <div tal:replace="structure obj/message/output|None" />
               </div>
               <div class="padding-10">
-                <p class="padmar-0" tal:condition="python: obj.message_read == [user]">
+                <p class="padmar-0" tal:condition="python: obj.assigned_to == [user]">
                   <a class="button btn btn-secondary pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/delete_confirmation">Delete</a>
                 </p>
                 <p>

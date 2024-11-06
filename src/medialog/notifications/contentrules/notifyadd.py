@@ -11,6 +11,7 @@ from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
 from plone import api
+from plone.app.textfield import RichText
 
 from plone.stringinterp.interfaces import IStringInterpolator
 
@@ -19,16 +20,9 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class INotifyAddAction(Interface):
     """Interface for the configurable aspects of a notify action.
-
     This is also used to create add and edit forms, below.
     """
-
-    message = schema.Text(
-        title=_("Message"),
-        description=_("The message shown to the user. NOTE: You can use  '${}' variables from"),
-        required=True,
-    )
-
+    
     message_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),
@@ -36,7 +30,14 @@ class INotifyAddAction(Interface):
         required=True,
         default="info",
     )
-        
+    
+    message = RichText(
+        title=_("Message"),
+        description=_("The message shown to the user. NOTE: You can use  '${}' variables from"),
+        required=True,
+        max_length=500,
+    )
+    
     message_users = schema.Set(
         title=_("label_notify_users", default="Notify users"),
         description="",
@@ -44,7 +45,7 @@ class INotifyAddAction(Interface):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
     )
     
-    # message_read = schema.List(
+    # assigned_to = schema.List(
     #     title=_("Mark message as read"),
     #     required=False,
     #     value_type=schema.TextLine(),
@@ -69,7 +70,7 @@ class NotifyAddAction(SimpleItem):
     def summary(self):
         return _(
             "Notify with message ${message}",
-            mapping=dict(message=self.message),
+            mapping=dict(message=self.message.output),
         )
 
 
@@ -101,11 +102,11 @@ class NotifyAddActionExecutor:
             message = message,
             message_type = message_type,
             message_users = message_users,
-            message_read = [],
+            assigned_to = [],
             container=portal
         )
         
-        IStatusMessage(request).addStatusMessage(message, type=message_type)
+        # IStatusMessage(request).addStatusMessage(message, type=message_type)
         
         return True
 

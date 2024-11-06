@@ -4,7 +4,7 @@
 from Products.Five.browser import BrowserView
 from zope.interface import Interface
 from plone import api
- 
+from DateTime import DateTime
  
 
 class INotificationsView(Interface):
@@ -38,7 +38,8 @@ class NotificationsView(BrowserView):
         user = self.get_user()
         # Not filter in template
         #user = api.user.get_current()
+        today = DateTime()
         
-        return self.context.portal_catalog(portal_type=['Notification'], message_read=user)
+        return self.context.portal_catalog(portal_type=['Notification'], assigned_to=user, effective={"query": today, "range": "max"})
         
         
