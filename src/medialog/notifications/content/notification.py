@@ -45,6 +45,7 @@ class INotification(model.Schema):
     )
     
     # directives.write_permission(message_read='cmf.ManagePortal')
+    directives.mode(message_read='hidden')
     message_read = schema.List(
         title=_("Mark message as read"),
         required=False,
