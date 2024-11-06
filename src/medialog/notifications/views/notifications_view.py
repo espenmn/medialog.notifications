@@ -21,24 +21,24 @@ class NotificationsView(BrowserView):
         return self.index()
     
     # #TO DO, cache (?)
-    # def get_user(self):
-    #     user = api.user.get_current()
-    #     user_id = user.getId()
+    def get_user(self):
+        user = api.user.get_current()
+        user_id = user.getId()
         
-    #     if user_id:
-    #         return user_id
+        if user_id:
+            return user_id
         
-    #     #TO DO: What do we do for 'anon'?
-    #     return 'anon'
+        #TO DO: What do we do for 'anon'?
+        return 'anon'
     
         
     
     #TO DO, cache (?)
     def get_items(self):
-        # user = self.get_user()
+        user = self.get_user()
         # Not filter in template
-        user = api.user.get_current()
+        #user = api.user.get_current()
         
-        return self.context.portal_catalog(portal_type=['Notification'], message_read=user.id)
+        return self.context.portal_catalog(portal_type=['Notification'], message_read=user)
         
         
