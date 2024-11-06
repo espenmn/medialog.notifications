@@ -16,7 +16,8 @@
      permission="zope2.View"
      />
 
-  <browser:viewlet
+  <!-- Add this in your own add on -->
+  <!-- <browser:viewlet
      name="notification-viewlet"
      for="DocentIMS.ActionItems.content.front_page.IFrontPage"
      manager="plone.app.layout.viewlets.interfaces.IGlobalStatusMessage"
@@ -24,6 +25,6 @@
      class=".notification_viewlet.NotificationViewlet"
      template="notification-viewlet.pt"
      permission="zope2.View"
-     />
+     /> -->
 
 </configure>
