@@ -49,7 +49,7 @@
   </property>
 
   <!-- View information -->
-  <property name="add_view_expr">string:${folder_url}/notifications/++add++Notification</property>
+  <property name="add_view_expr">string:${portal_url}/notifications/++add++Notification</property>
   <property name="default_view">notification-view</property>
   <property name="default_view_fallback">False</property>
   <property name="immediate_view">view</property>
