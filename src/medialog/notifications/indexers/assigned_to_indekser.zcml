@@ -1,9 +1,0 @@
-<configure xmlns="http://namespaces.zope.org/zope">
-
-  <adapter factory=".assigned_to_indekser.dummy"
-    name="assigned_to_indekser" />
-
-  <adapter factory=".assigned_to_indekser.assigned_to_indekser"
-    name="assigned_to_indekser" />
-
-</configure>

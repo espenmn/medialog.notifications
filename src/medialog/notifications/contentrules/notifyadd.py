@@ -45,7 +45,7 @@ class INotifyAddAction(Interface):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
     )
     
-    # assigned_to = schema.List(
+    # message_assigned = schema.List(
     #     title=_("Mark message as read"),
     #     required=False,
     #     value_type=schema.TextLine(),
@@ -102,7 +102,7 @@ class NotifyAddActionExecutor:
             message = message,
             message_type = message_type,
             message_users = message_users,
-            assigned_to = [],
+            message_assigned = [],
             container=portal
         )
         

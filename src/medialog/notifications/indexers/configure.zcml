@@ -4,7 +4,7 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
-  <include file="assigned_to_indekser.zcml" />
+  <!-- <include file="message_assigned_indekser.zcml" /> -->
 
   <!-- <include file="message_users_index.zcml" /> -->
 

@@ -40,6 +40,6 @@ class NotificationsView(BrowserView):
         #user = api.user.get_current()
         today = DateTime()
         
-        return self.context.portal_catalog(portal_type=['Notification'], assigned_to=user, effective={"query": today, "range": "max"})
+        return self.context.portal_catalog(portal_type=['Notification'], message_assigned=user, effective={"query": today, "range": "max"})
         
         

@@ -47,8 +47,8 @@ class INotification(model.Schema):
     )
     
     
-    # directives.mode(assigned_to='hidden')
-    assigned_to = schema.List(
+    # directives.mode(message_assigned='hidden')
+    message_assigned = schema.List(
         title=_("Assigned to (who should see this)"),
         required=False,
         value_type=schema.TextLine(),

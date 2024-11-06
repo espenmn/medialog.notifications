@@ -26,7 +26,7 @@
                  <div tal:replace="structure obj/message/output|None" />
               </div>
               <div class="padding-10">
-                <p class="padmar-0" tal:condition="python: obj.assigned_to == [user]">
+                <p class="padmar-0" tal:condition="python: obj.message_assigned == [user]">
                   <a class="button btn btn-secondary pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/delete_confirmation">Delete</a>
                 </p>
                 <p>
