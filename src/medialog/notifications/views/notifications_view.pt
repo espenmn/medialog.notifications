@@ -47,6 +47,7 @@
                           .padding-10 {padding-left: 10px;}
                           p.padmar-0 {padding: 0; margin:0 }
                           .read-True .portalMessage {opacity: 0.35}
+                          .notification-viewlet {display: none}
           </style>
         </tal:define>
       </metal:block>
