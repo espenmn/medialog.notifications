@@ -104,8 +104,7 @@ class NotifyAddActionExecutor:
         portal = api.portal.get()
         obj = self.event.object
         interpolator = IStringInterpolator(obj)
-        org_message = self.element.message.output
-        message = interpolator(org_message)
+        message = interpolator(self.element.message.raw)
         message_type = self.element.message_type
         message_users = self.element.message_users
         effective_date = self.element.effective_date
