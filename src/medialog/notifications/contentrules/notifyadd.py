@@ -11,7 +11,7 @@ from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
 from plone import api
-from plone.app.textfield import RichText
+from plone.app.textfield import RichText, RichTextValue
 
 from plone.stringinterp.interfaces import IStringInterpolator
 
@@ -43,6 +43,18 @@ class INotifyAddAction(Interface):
         description="",
         required=False,
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
+    )
+    
+    additional_users = schema.TextLine(
+        title=_("Additional notification user(s)"),
+        description=_("Use  '${}' variables list below (for example ${user_id} )"),
+        required=False
+    )
+    
+    effective_date = schema.Datetime(
+        title=_("Effective date"),
+        description=_("When should the notification show"),
+        required=False,
     )
     
     # message_assigned = schema.List(
@@ -88,22 +100,41 @@ class NotifyAddActionExecutor:
         self.event = event
 
     def __call__(self):
-        request = self.context.REQUEST
+        # request = self.context.REQUEST
         portal = api.portal.get()
-        org_message = _(self.element.message)
-        message = IStringInterpolator(self.context)(org_message)
+        obj = self.event.object
+        interpolator = IStringInterpolator(obj)
+        org_message = self.element.message.output
+        message = interpolator(org_message)
         message_type = self.element.message_type
         message_users = self.element.message_users
+        effective_date = self.element.effective_date
+        
+        container =  portal.get('notifications', portal)
+            
+        
+        # add users from 'variable field'
+        if self.element.additional_users:
+            more_users = interpolator(self.element.additional_users)
+            if type(more_users) == str:
+                userlist = more_users.split(", ")
+                for user in userlist:
+                    # Check if user exist
+                    if api.user.get(username=user):
+                        message_users.add(f"user:{user}")
+            
         
         #TO DO: Should we both add notify or should be just save it.
         obj = api.content.create(
             type='Notification',
             title='Notification',
-            message = message,
+            # message = message, 
+            message  = RichTextValue(message),
             message_type = message_type,
             message_users = message_users,
             message_assigned = [],
-            container=portal
+            effective_date = effective_date,
+            container=container
         )
         
         # IStatusMessage(request).addStatusMessage(message, type=message_type)

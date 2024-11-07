@@ -56,4 +56,13 @@
 
   <include package=".contentrules" />
 
+    <!-- Adapter for Notification' -->
+    <!-- for use in the 'notification content rule'-->
+    <adapter
+        factory=".adapters.NotificationTo"
+        provides="plone.stringinterp.interfaces.IStringSubstitution"
+        for="*"
+        name="notification_to"
+    />
+
 </configure>

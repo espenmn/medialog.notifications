@@ -19,13 +19,13 @@ def handler(obj, event):
                 
         if entrylist[0] == 'user':
             users.append(entrylist[1])
-    
+          
     userset =  set(users)
 
 
     obj.message_assigned = list(userset)
-    # import pdb; pdb.set_trace()
     # obj.reindexObject('message_assigned')
+    obj.reindexObject()
     
     # return True
     
