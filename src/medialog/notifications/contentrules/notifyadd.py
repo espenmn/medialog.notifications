@@ -10,11 +10,10 @@ from zope import schema
 from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
+from datetime import datetime, timedelta   
 from plone import api
 from plone.app.textfield import RichText, RichTextValue
-
 from plone.stringinterp.interfaces import IStringInterpolator
-
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
@@ -53,7 +52,13 @@ class INotifyAddAction(Interface):
     
     effective_date = schema.Datetime(
         title=_("Effective date"),
-        description=_("When should the notification show"),
+        description=_("When should the notification show. Dont set this if you use relative date below."),
+        required=False,
+    )
+    
+    relative_time = schema.Time(
+        title=_("Time of day"),
+        description=_("Alternatively, what time of day, hours:minutes)"),
         required=False,
     )
     
@@ -98,6 +103,7 @@ class NotifyAddActionExecutor:
         self.context = context
         self.element = element
         self.event = event
+        
 
     def __call__(self):
         # request = self.context.REQUEST
@@ -108,6 +114,12 @@ class NotifyAddActionExecutor:
         message_type = self.element.message_type
         message_users = self.element.message_users
         effective_date = self.element.effective_date
+        if not effective_date and self.element.relative_time:
+            # today_date = datetime.now().date()
+            relative_time = self.element.relative_time
+            effective_date = datetime.combine(datetime.now().date(), relative_time )
+            if relative_time < datetime.now().time():
+                effective_date = effective_date + timedelta(days=1)
         
         container =  portal.get('notifications', portal)
             
@@ -172,4 +184,4 @@ class NotifyAddEditForm(ActionEditForm):
 
 
 class NotifyAddEditFormView(ContentRuleFormWrapper):
-    form = NotifyAddAddForm
+    form = NotifyAddEditForm
