@@ -26,7 +26,6 @@ class INotification(model.Schema):
         title=_("Message"),
         description=_("The message to send to the user."),
         required=True,
-         max_length=500,
     )
 
     # directives.write_permission(message_type='cmf.ManagePortal')
@@ -34,7 +33,7 @@ class INotification(model.Schema):
         title=_("Message type"),
         description=_("Select the type of message to display."),
         values=("info", "warning", "error"),
-        required=True,
+        required=False,
         default="info",
     )
     
@@ -54,6 +53,11 @@ class INotification(model.Schema):
         value_type=schema.TextLine(),
         default=[],
         missing_value=[]
+    )
+    
+    show_title = schema.Bool(
+        title=_("Show message type Title)"),
+        required=False,
     )
     
     

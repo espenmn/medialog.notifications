@@ -7,34 +7,165 @@ from plone.contentrules.rule.interfaces import IExecutable
 from plone.contentrules.rule.interfaces import IRuleElementData
 from Products.statusmessages.interfaces import IStatusMessage
 from zope import schema
+from plone.autoform import directives
 from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
 from datetime import datetime, timedelta   
 from plone import api
 from plone.app.textfield import RichText, RichTextValue
+from plone.app.z3cform.widget import RichTextFieldWidget 
 from plone.stringinterp.interfaces import IStringInterpolator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+PATTERN_OPTIONS = {
+    "tiny": {
+            "menu": {
+            "edit": {
+                "items": "undo redo",
+                "title": "Edit",
+            },
+            "format": {
+                "items": "bold italic underline | formats",
+                "title": "Format",
+            },
+            "insert": {"items": "hr", "title": "Insert"},
+            "table": {
+                "items": "",
+                "title": "Table",
+            },
+            "tools": {
+                "items": "code",
+                "title": "Tools",
+            },
+            "view": {
+                "items": "",
+                "title": "View",
+            },
+        },
+        "menubar": ["edit", "table", "format", "toolsview", "insert"],
+        "toolbar": "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        "plugins": [
+            "hr",
+            "lists",
+            "nonbreaking",
+            "noneditable",
+            "pagebreak",
+            "paste",
+            "code",
+        ],
+        "style_formats": [
+            {
+                "items": [
+                    {"format": "h2", "title": "Header 2"},
+                    {"format": "h3", "title": "Header 3"},
+                    {"format": "h4", "title": "Header 4"},
+                    {"format": "h5", "title": "Header 5"},
+                    {"format": "h6", "title": "Header 6"},
+                ],
+                "title": "Headers",
+            },
+            {
+                "items": [
+                    {"format": "p", "title": "Paragraph"},
+                    {"format": "blockquote", "title": "Blockquote"},
+                    {"format": "div", "title": "Div"},
+                    {"format": "pre", "title": "Pre"},
+                ],
+                "title": "Block",
+            },
+            {
+                "items": [
+                    {"format": "bold", "icon": "bold", "title": "Bold"},
+                    {"format": "italic", "icon": "italic", "title": "Italic"},
+                    {
+                        "format": "underline",
+                        "icon": "underline",
+                        "title": "Underline",
+                    },
+                    {
+                        "format": "strikethrough",
+                        "icon": "strikethrough",
+                        "title": "Strikethrough",
+                    },
+                    {
+                        "format": "superscript",
+                        "icon": "superscript",
+                        "title": "Superscript",
+                    },
+                    {
+                        "format": "subscript",
+                        "icon": "subscript",
+                        "title": "Subscript",
+                    },
+                    {"format": "code", "icon": "code", "title": "Code"},
+                ],
+                "title": "Inline",
+            },
+            {
+                "items": [
+                    {
+                        "format": "alignleft",
+                        "icon": "alignleft",
+                        "title": "Left",
+                    },
+                    {
+                        "format": "aligncenter",
+                        "icon": "aligncenter",
+                        "title": "Center",
+                    },
+                    {
+                        "format": "alignright",
+                        "icon": "alignright",
+                        "title": "Right",
+                    },
+                    {
+                        "format": "alignjustify",
+                        "icon": "alignjustify",
+                        "title": "Justify",
+                    },
+                ],
+                "title": "Alignment",
+            },
+            {
+                "items": [
+                    {
+                        "classes": "listing",
+                        "selector": "table",
+                        "title": "Listing",
+                    }
+                ],
+                "title": "Tables",
+            },
+        ],
+        "height": 300,
+    
+    }
+} 
 
 class INotifyAddAction(Interface):
     """Interface for the configurable aspects of a notify action.
     This is also used to create add and edit forms, below.
     """
     
+        
     message_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),
         values=("info", "warning", "error"),
-        required=True,
-        default="info",
+        required=False,
+        # default="info",
     )
     
+    directives.widget(
+        "message",
+        RichTextFieldWidget,
+        pattern_options=PATTERN_OPTIONS,
+    )
     message = RichText(
         title=_("Message"),
         description=_("The message shown to the user. NOTE: You can use  '${}' variables from"),
         required=True,
-        max_length=500,
     )
     
     message_users = schema.Set(
@@ -44,6 +175,8 @@ class INotifyAddAction(Interface):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
     )
     
+    
+    
     additional_users = schema.TextLine(
         title=_("Additional notification user(s)"),
         description=_("Use  '${}' variables list below (for example ${user_id} )"),
@@ -51,14 +184,19 @@ class INotifyAddAction(Interface):
     )
     
     effective_date = schema.Datetime(
-        title=_("Effective date"),
-        description=_("When should the notification show. Dont set this if you use relative date below."),
+        title=_("When to show notification"),
+        description=_("Effective date. Dont set this if you use relative date below."),
         required=False,
     )
     
     relative_time = schema.Time(
         title=_("Time of day"),
         description=_("Alternatively, what time of day, hours:minutes)"),
+        required=False,
+    )
+    
+    show_title = schema.Bool(
+        title=_("Show message type Title)"),
         required=False,
     )
     
@@ -114,6 +252,7 @@ class NotifyAddActionExecutor:
         message_type = self.element.message_type
         message_users = self.element.message_users
         effective_date = self.element.effective_date
+        show_title =  self.element.show_title
         if not effective_date and self.element.relative_time:
             # today_date = datetime.now().date()
             relative_time = self.element.relative_time
@@ -142,6 +281,7 @@ class NotifyAddActionExecutor:
             # message = message, 
             message  = RichTextValue(message),
             message_type = message_type,
+            show_title =  show_title,
             message_users = message_users,
             message_assigned = [],
             effective_date = effective_date,
