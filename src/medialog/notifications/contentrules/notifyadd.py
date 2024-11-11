@@ -53,6 +53,7 @@ PATTERN_OPTIONS = {
             "pagebreak",
             "paste",
             "code",
+            "link"
         ],
         "style_formats": [
             {
