@@ -18,6 +18,7 @@ from plone.app.z3cform.widget import RichTextFieldWidget
 from plone.stringinterp.interfaces import IStringInterpolator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+
 PATTERN_OPTIONS = {
     "tiny": {
             "menu": {
@@ -44,7 +45,7 @@ PATTERN_OPTIONS = {
             },
         },
         "menubar": ["edit", "table", "format", "toolsview", "insert"],
-        "toolbar": "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ",
+        "toolbar": "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | plonelink  unlink | ",
         "plugins": [
             "hr",
             "lists",
@@ -158,6 +159,11 @@ class INotifyAddAction(Interface):
         # default="info",
     )
     
+    show_title = schema.Bool(
+        title=_("Show message type Title)"),
+        required=False,
+    )
+    
     directives.widget(
         "message",
         RichTextFieldWidget,
@@ -196,10 +202,7 @@ class INotifyAddAction(Interface):
         required=False,
     )
     
-    show_title = schema.Bool(
-        title=_("Show message type Title)"),
-        required=False,
-    )
+
     
     # message_assigned = schema.List(
     #     title=_("Mark message as read"),
