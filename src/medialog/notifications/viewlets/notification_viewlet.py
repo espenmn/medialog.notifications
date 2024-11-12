@@ -14,6 +14,16 @@ class NotificationViewlet(ViewletBase):
     # def update(self):
     #     self.message = self.get_message()
 
+    # #TO DO, cache (?)
+    def get_user(self):
+        user = api.user.get_current()
+        user_id = user.getId()
+        
+        if user_id:
+            return user.getProperty("fullname")
+        
+        #TO DO: What do we do for 'anon'?
+        return 'anon'
 
     #TO DO, cache (?)
     def count_items(self):

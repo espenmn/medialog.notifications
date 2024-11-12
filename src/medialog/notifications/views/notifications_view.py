@@ -26,7 +26,7 @@ class NotificationsView(BrowserView):
         user_id = user.getId()
         
         if user_id:
-            return user_id
+            return user.getProperty("fullname")
         
         #TO DO: What do we do for 'anon'?
         return 'anon'
@@ -35,7 +35,7 @@ class NotificationsView(BrowserView):
     
     #TO DO, cache (?)
     def get_items(self):
-        user = self.get_user()
+        user = api.user.get_current().getId()
         # Not filter in template
         #user = api.user.get_current()
         today = DateTime()

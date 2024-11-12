@@ -5,9 +5,9 @@
   <body>
     <metal:content-core fill-slot="content">
       <metal:block define-macro="content-core">
-        <tal:define tal:define="user view/get_user">
+        <tal:define tal:define="user view/get_user|None">
 
-          <h1>My Notifications</h1>
+          <h1>${user}'s Notifications summary</h1>
           <!-- <p>TO DO, show only 'assigned to me'</p> -->
           <!-- <p>TO DO: Should only be possible to delete if it is 'only for me'</p> -->
 

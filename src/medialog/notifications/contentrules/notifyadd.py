@@ -44,7 +44,7 @@ PATTERN_OPTIONS = {
             },
         },
         "menubar": ["edit", "table", "format", "toolsview", "insert"],
-        "toolbar": "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        "toolbar": "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ",
         "plugins": [
             "hr",
             "lists",
