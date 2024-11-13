@@ -15,9 +15,14 @@
             </svg>
             <strong>${message_type}</strong>
             <div tal:replace="structure context/message/output|None" />
-             <!-- ${context/message_users} -->
+            <!-- ${context/message_users} -->
           </div>
-
+          <p class="align-right">
+            <a class="xpat-plone-modal" data-pat-plone-modal="{}" href="${context/absolute_url}/remove-notification?item=${context/UID}">✔ Got it!</a>
+          </p>
+          <style>
+                  .align-right {text-align: right}
+          </style>
         </tal:define>
 
       </metal:block>
