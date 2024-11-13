@@ -17,7 +17,7 @@ from plone.app.textfield import RichText, RichTextValue
 from plone.app.z3cform.widget import RichTextFieldWidget 
 from plone.stringinterp.interfaces import IStringInterpolator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+# from plone.supermodel.directives import fieldset
 
 PATTERN_OPTIONS = {
     "tiny": {
@@ -160,7 +160,7 @@ class INotifyAddAction(Interface):
     )
     
     show_title = schema.Bool(
-        title=_("Show message type Title)"),
+        title=_("Show message type (Title)"),
         required=False,
     )
     
@@ -171,8 +171,14 @@ class INotifyAddAction(Interface):
     )
     message = RichText(
         title=_("Message"),
-        description=_("The message shown to the user. NOTE: You can use  '${}' variables from"),
+        description=_("The message shown to the user. NOTE: You can use  '${}' variables (see below))"),
         required=True,
+    )
+    
+    user_filter = schema.Bool(
+        title=_("label_user_filter", default="Show to all"),
+        default=True,
+        required=False,
     )
     
     message_users = schema.Set(
@@ -182,27 +188,35 @@ class INotifyAddAction(Interface):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
     )
     
-    
-    
     additional_users = schema.TextLine(
         title=_("Additional notification user(s)"),
         description=_("Use  '${}' variables list below (for example ${user_id} )"),
         required=False
     )
-    
-    effective_date = schema.Datetime(
-        title=_("When to show notification"),
-        description=_("Effective date. Dont set this if you use relative date below."),
-        required=False,
+
+    time_filter = schema.Bool(
+        title=_("label_time_filter", default="Show immidiately"),
+        default=True,
+        required=False, 
     )
-    
+       
     relative_time = schema.Time(
         title=_("Time of day"),
-        description=_("Alternatively, what time of day, hours:minutes)"),
-        required=False,
+        description=_("(From) what time of day, hours:minutes)"),
+        required=False, 
     )
     
-
+    effective_date = schema.Datetime(
+        title=_("Specific date to show notification"),
+        description=_("Effective date. Dont set this if you use time settings above."), 
+        required=False, 
+    )
+    
+   # fieldset('date',
+    #     label=u'Dates',
+    #     fields=['relative_time', 'effective_date']
+    # ) 
+    
     
     # message_assigned = schema.List(
     #     title=_("Mark message as read"),
@@ -255,9 +269,14 @@ class NotifyAddActionExecutor:
         message = interpolator(self.element.message.raw)
         message_type = self.element.message_type
         message_users = self.element.message_users
-        effective_date = self.element.effective_date
+        time_filter =  self.element.time_filter 
+        if time_filter:
+            effective_date = None
+        else:
+            effective_date = self.element.effective_date
         show_title =  self.element.show_title
-        if not effective_date and self.element.relative_time:
+        
+        if not effective_date and not time_filter and self.element.relative_time:
             # today_date = datetime.now().date()
             relative_time = self.element.relative_time
             effective_date = datetime.combine(datetime.now().date(), relative_time )
@@ -276,6 +295,11 @@ class NotifyAddActionExecutor:
                     # Check if user exist
                     if api.user.get(username=user):
                         message_users.add(f"user:{user}")
+                        
+        if self.element.user_filter:
+            userlist = api.user.get_users()
+            for user in userlist:
+                message_users.add(f"user:{user}")
             
         
         #TO DO: Should we both add notify or should be just save it.

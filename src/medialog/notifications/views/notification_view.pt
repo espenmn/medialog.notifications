@@ -3,10 +3,12 @@
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="medialog.notifications" metal:use-macro="context/main_template/macros/master">
   <body>
-    <metal:content-core fill-slot="content">
+ 
+    <metal:content-core fill-slot="content-core">
       <metal:block define-macro="content-core">
         <tal:define tal:define="message_type context/message_type|None;
          mes_type python: 'danger' if message_type == 'error' else message_type">
+         <p class="xtext-right">Messge from ${context/Creator}</p>
 
           <div class="portalMessage statusmessage statusmessage-${message_type} alert alert-${mes_type}" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plone-icon statusmessage-icon mb-1 me-2 bi bi-${message_type}-circle-fill" viewBox="0 0 16 16" aria-labelledby="title">
@@ -17,11 +19,15 @@
             <div tal:replace="structure context/message/output|None" />
             <!-- ${context/message_users} -->
           </div>
-          <p class="align-right">
+          <p class="text-right">
             <a class="xpat-plone-modal" data-pat-plone-modal="{}" href="${context/absolute_url}/remove-notification?item=${context/UID}">✔ Got it!</a>
           </p>
           <style>
-                  .align-right {text-align: right}
+                  .text-right {text-align: right}
+                  .portalMessage {margin: 0 0 5px 0}
+                  .mb-5 {margin-bottom: 1.3rem;}
+                  a.summary.url {display: none} 
+                  .alert- {background: whitesmoke}
           </style>
         </tal:define>
 

@@ -1,4 +1,9 @@
+
+<div><p class="red" i18n:translate="immidiately"><b>Note:</b> If you dont set date, the Notification will show immidiately</p></div>
+
+
 <metal:block use-macro="context/@@ploneform-macros/titlelessform" />
+
 <tal:i18n i18n:domain="plone">
 <div><p></p></div>
 <p>&nbsp;</p>
@@ -31,3 +36,44 @@
     </tbody>
   </table>
 </tal:i18n>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var usersFilterCheckbox = document.getElementById("form-widgets-user_filter-0");
+    var usersField      = document.getElementById("formfield-form-widgets-message_users");
+    var additionalUsers = document.getElementById("formfield-form-widgets-additional_users");
+
+    var timeFilterCheckbox = document.getElementById("form-widgets-time_filter-0");
+    var relativeTimeField = document.getElementById("formfield-form-widgets-relative_time");
+    var effectiveTimeField = document.getElementById("formfield-form-widgets-effective_date");
+    
+    function toggleUsers() {
+        if (usersFilterCheckbox.checked) {
+            usersField.style.display = "none";
+            additionalUsers.style.display = "none";
+        } else {
+            usersField.style.display = "block";
+            additionalUsers.style.display = "block";
+        }
+    }
+
+     // Function to toggle visibility based on the checkbox
+    function toggleRelativeTime() {
+        if (timeFilterCheckbox.checked) {
+            relativeTimeField.style.display = "none"; 
+            effectiveTimeField.style.display = "none"; 
+             
+        } else {
+            relativeTimeField.style.display = "block";
+            effectiveTimeField.style.display = "block"; 
+        }
+    }
+
+    // Initialize visibility on page load
+    toggleRelativeTime();
+    toggleUsers();
+
+    // Add event listener to the checkbox to toggle visibility on change
+    timeFilterCheckbox.addEventListener("change", toggleRelativeTime);
+    usersFilterCheckbox.addEventListener("change", toggleUsers);
+});
+</script>

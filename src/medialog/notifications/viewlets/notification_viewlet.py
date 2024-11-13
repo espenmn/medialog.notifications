@@ -3,6 +3,8 @@
 from plone.app.layout.viewlets import ViewletBase
 from plone import api
 
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
 import datetime
 from DateTime import DateTime
 
@@ -10,6 +12,8 @@ from DateTime import DateTime
  
 
 class NotificationViewlet(ViewletBase):
+    
+    template = ViewPageTemplateFile('notification-viewlet.pt')
 
     # def update(self):
     #     self.message = self.get_message()
