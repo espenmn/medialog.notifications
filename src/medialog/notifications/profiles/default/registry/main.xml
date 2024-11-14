@@ -3,7 +3,19 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="medialog.notifications">
 
-<!-- -*- extra stuff goes here -*- -->
+  <!-- Javascript -->
+  <records prefix="plone.bundles/medialognotificatons"
+            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <value key="enabled">True</value>
+    <value key="jscompilation">++plone++medialog.notifications/field_toggle.js</value>
+    <value key="last_compilation">2016-01-01 00:00:00</value>
+    <value key="compile">False</value>
+    <value key="depends">plone</value>
+    <value key="merge_with">logged-in</value>
+  </records>
+
+
+<!-- -*- Querystring -*- -->
  
   <record name="plone.app.querystring.field.message_assigned.description" interface="plone.app.querystring.interfaces.IQueryField" field="description">
     <field type="plone.registry.field.Text">

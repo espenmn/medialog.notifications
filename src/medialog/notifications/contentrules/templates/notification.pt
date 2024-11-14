@@ -36,7 +36,7 @@
     </tbody>
   </table>
 </tal:i18n>
-<script>
+<!-- <script>
 $(document).ready(function () {
     var usersFilterCheckbox = $("#form-widgets-user_filter-0");
     var usersField = $("#formfield-form-widgets-message_users");
@@ -75,4 +75,4 @@ $(document).ready(function () {
     usersFilterCheckbox.on("change", toggleUsers);
 });
 
-</script>
+</script> -->

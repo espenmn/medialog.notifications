@@ -19,7 +19,8 @@ class INotification(model.Schema):
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
     # model.load('notification.xml')
-        
+
+    # directives.write_permission(message='cmf.ManagePortal')
     message_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),
@@ -80,6 +81,21 @@ class INotification(model.Schema):
         description=_("Effective date. Dont set this if you use time settings above."), 
         required=False, 
     )
+    
+    
+    #directives.mode(message_assigned='hidden')
+    message_assigned = schema.List(
+        title=_("Assigned to (who should see this)"),
+        required=False,
+        value_type=schema.TextLine(),
+        default=[],
+        missing_value=[]
+    )
+    
+    # show_title = schema.Bool(
+    #     title=_("Show message type Title)"),
+    #     required=False,
+    # )
     
     
 
