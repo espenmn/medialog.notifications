@@ -5,18 +5,21 @@ from plone.app.contentrules.actions import ActionEditForm
 from plone.app.contentrules.browser.formhelper import ContentRuleFormWrapper
 from plone.contentrules.rule.interfaces import IExecutable
 from plone.contentrules.rule.interfaces import IRuleElementData
-from Products.statusmessages.interfaces import IStatusMessage
-from zope import schema
-from plone.autoform import directives
-from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import Interface
-from datetime import datetime, timedelta   
+from z3c.form import interfaces
 from plone import api
+from plone.autoform import directives
 from plone.app.textfield import RichText, RichTextValue
 from plone.app.z3cform.widget import RichTextFieldWidget 
 from plone.stringinterp.interfaces import IStringInterpolator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+ 
+# from Products.statusmessages.interfaces import IStatusMessage
+from zope import schema
+from zope.component import adapter
+from zope.interface import implementer
+from zope.interface import Interface
+from datetime import datetime, timedelta   
+
 # from plone.supermodel.directives import fieldset
 
 PATTERN_OPTIONS = {
@@ -212,7 +215,7 @@ class INotifyAddAction(Interface):
         required=False, 
     )
     
-   # fieldset('date',
+    # fieldset('date',
     #     label=u'Dates',
     #     fields=['relative_time', 'effective_date']
     # ) 

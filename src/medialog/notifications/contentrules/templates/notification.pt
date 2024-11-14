@@ -37,34 +37,32 @@
   </table>
 </tal:i18n>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    var usersFilterCheckbox = document.getElementById("form-widgets-user_filter-0");
-    var usersField      = document.getElementById("formfield-form-widgets-message_users");
-    var additionalUsers = document.getElementById("formfield-form-widgets-additional_users");
+$(document).ready(function () {
+    var usersFilterCheckbox = $("#form-widgets-user_filter-0");
+    var usersField = $("#formfield-form-widgets-message_users");
+    var additionalUsers = $("#formfield-form-widgets-additional_users");
 
-    var timeFilterCheckbox = document.getElementById("form-widgets-time_filter-0");
-    var relativeTimeField = document.getElementById("formfield-form-widgets-relative_time");
-    var effectiveTimeField = document.getElementById("formfield-form-widgets-effective_date");
-    
     function toggleUsers() {
-        if (usersFilterCheckbox.checked) {
-            usersField.style.display = "none";
-            additionalUsers.style.display = "none";
+        if (usersFilterCheckbox.is(":checked")) {
+            usersField.hide();
+            additionalUsers.hide();
         } else {
-            usersField.style.display = "block";
-            additionalUsers.style.display = "block";
+            usersField.show();
+            additionalUsers.show();
         }
     }
 
-     // Function to toggle visibility based on the checkbox
+    var timeFilterCheckbox = $("#form-widgets-time_filter-0");
+    var relativeTimeField = $("#formfield-form-widgets-relative_time");
+    var effectiveTimeField = $("#formfield-form-widgets-effective_date");
+
     function toggleRelativeTime() {
-        if (timeFilterCheckbox.checked) {
-            relativeTimeField.style.display = "none"; 
-            effectiveTimeField.style.display = "none"; 
-             
+        if (timeFilterCheckbox.is(":checked")) {
+            relativeTimeField.hide();
+            effectiveTimeField.hide();
         } else {
-            relativeTimeField.style.display = "block";
-            effectiveTimeField.style.display = "block"; 
+            relativeTimeField.show();
+            effectiveTimeField.show();
         }
     }
 
@@ -73,7 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleUsers();
 
     // Add event listener to the checkbox to toggle visibility on change
-    timeFilterCheckbox.addEventListener("change", toggleRelativeTime);
-    usersFilterCheckbox.addEventListener("change", toggleUsers);
+    timeFilterCheckbox.on("change", toggleRelativeTime);
+    usersFilterCheckbox.on("change", toggleUsers);
 });
+
 </script>
