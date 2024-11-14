@@ -80,10 +80,11 @@ class INotification(model.Schema):
         title=_("Specific date to show notification"),
         description=_("Effective date. Dont set this if you use time settings above."), 
         required=False, 
-    )
-    
+    )    
     
     directives.mode(message_assigned='hidden')
+    #Maybe a condition would be better ??
+    #If so, it is possible to see who has not seen the Notification
     message_assigned = schema.List(
         title=_("Assigned to (who should see this)"),
         required=False,
