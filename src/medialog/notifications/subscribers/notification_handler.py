@@ -2,6 +2,7 @@
 from plone import api
 from plone.stringinterp.interfaces import IStringInterpolator
 from datetime import datetime, timedelta   
+from zope.lifecycleevent import ObjectAddedEvent
 
 def get_users(message_users):
     users = []
@@ -26,6 +27,7 @@ def handler(obj, event):
     """
     # NOTE: if you modify the Notificaion, users who have read the Noteification are re-added
     message_users =  obj.message_users
+    
     
     # add users from 'variable field'
     if obj.additional_users:
@@ -63,7 +65,8 @@ def handler(obj, event):
         
 
     obj.message_assigned = list(message_assigned)
-    obj.effective_date= effective_date
+    if not isinstance(event, ObjectAddedEvent):
+        obj.effective_date= effective_date
     obj.reindexObject()
     #Maybe reindex just the fields? # return True
     

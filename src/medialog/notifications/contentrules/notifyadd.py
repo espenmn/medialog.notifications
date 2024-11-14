@@ -272,13 +272,14 @@ class NotifyAddActionExecutor:
         message = interpolator(self.element.message.raw)
         message_type = self.element.message_type
         message_users = self.element.message_users
+        show_title =  self.element.show_title
         time_filter =  self.element.time_filter 
         if time_filter:
             effective_date = None
         else:
             effective_date = self.element.effective_date
-        show_title =  self.element.show_title
         
+        #import pdb; pdb.set_trace()
         if not effective_date and not time_filter and self.element.relative_time:
             # today_date = datetime.now().date()
             relative_time = self.element.relative_time
@@ -305,7 +306,7 @@ class NotifyAddActionExecutor:
                 message_users.add(f"user:{user}")
             
         
-        #TO DO: Should we both add notify or should be just save it.
+        #TO DO: Should we both add noti fy or should be just save it.
         obj = api.content.create(
             type='Notification',
             title='Notification',
