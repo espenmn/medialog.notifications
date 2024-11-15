@@ -65,8 +65,7 @@ def handler(obj, event):
         
 
     obj.message_assigned = list(message_assigned)
-    if not isinstance(event, ObjectAddedEvent):
-        obj.effective_date= effective_date
+    obj.effective_date= effective_date
     obj.reindexObject()
     #Maybe reindex just the fields? # return True
     
