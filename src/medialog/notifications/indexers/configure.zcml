@@ -6,7 +6,7 @@
 
   <!-- <include file="message_assigned_indekser.zcml" /> -->
 
-  <!-- <include file="message_users_index.zcml" /> -->
+  <include file="message_users_index.zcml" />
 
 
 </configure>

@@ -22,212 +22,85 @@ from datetime import datetime, timedelta
 
 # from plone.supermodel.directives import fieldset
 
-PATTERN_OPTIONS = {
-    "tiny": {
-            "menu": {
-            "edit": {
-                "items": "undo redo",
-                "title": "Edit",
-            },
-            "format": {
-                "items": "bold italic underline | formats",
-                "title": "Format",
-            },
-            "insert": {"items": "hr", "title": "Insert"},
-            "table": {
-                "items": "",
-                "title": "Table",
-            },
-            "tools": {
-                "items": "code",
-                "title": "Tools",
-            },
-            "view": {
-                "items": "",
-                "title": "View",
-            },
-        },
-        "menubar": ["edit", "table", "format", "toolsview", "insert"],
-        "toolbar": "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | plonelink  unlink | ",
-        "plugins": [
-            "hr",
-            "lists",
-            "nonbreaking",
-            "noneditable",
-            "pagebreak",
-            "paste",
-            "code",
-            "link"
-        ],
-        "style_formats": [
-            {
-                "items": [
-                    {"format": "h2", "title": "Header 2"},
-                    {"format": "h3", "title": "Header 3"},
-                    {"format": "h4", "title": "Header 4"},
-                    {"format": "h5", "title": "Header 5"},
-                    {"format": "h6", "title": "Header 6"},
-                ],
-                "title": "Headers",
-            },
-            {
-                "items": [
-                    {"format": "p", "title": "Paragraph"},
-                    {"format": "blockquote", "title": "Blockquote"},
-                    {"format": "div", "title": "Div"},
-                    {"format": "pre", "title": "Pre"},
-                ],
-                "title": "Block",
-            },
-            {
-                "items": [
-                    {"format": "bold", "icon": "bold", "title": "Bold"},
-                    {"format": "italic", "icon": "italic", "title": "Italic"},
-                    {
-                        "format": "underline",
-                        "icon": "underline",
-                        "title": "Underline",
-                    },
-                    {
-                        "format": "strikethrough",
-                        "icon": "strikethrough",
-                        "title": "Strikethrough",
-                    },
-                    {
-                        "format": "superscript",
-                        "icon": "superscript",
-                        "title": "Superscript",
-                    },
-                    {
-                        "format": "subscript",
-                        "icon": "subscript",
-                        "title": "Subscript",
-                    },
-                    {"format": "code", "icon": "code", "title": "Code"},
-                ],
-                "title": "Inline",
-            },
-            {
-                "items": [
-                    {
-                        "format": "alignleft",
-                        "icon": "alignleft",
-                        "title": "Left",
-                    },
-                    {
-                        "format": "aligncenter",
-                        "icon": "aligncenter",
-                        "title": "Center",
-                    },
-                    {
-                        "format": "alignright",
-                        "icon": "alignright",
-                        "title": "Right",
-                    },
-                    {
-                        "format": "alignjustify",
-                        "icon": "alignjustify",
-                        "title": "Justify",
-                    },
-                ],
-                "title": "Alignment",
-            },
-            {
-                "items": [
-                    {
-                        "classes": "listing",
-                        "selector": "table",
-                        "title": "Listing",
-                    }
-                ],
-                "title": "Tables",
-            },
-        ],
-        "height": 300,
-    
-    }
-} 
+from medialog.notifications.content.notification import INotification, PATTERN_OPTIONS
 
-class INotifyAddAction(Interface):
+class INotifyAddAction(INotification):
     """Interface for the configurable aspects of a notify action.
     This is also used to create add and edit forms, below.
+    We reuse the fields from INotification
+    And might add one more ?
     """
     
         
-    message_type = schema.Choice(
-        title=_("Message type"),
-        description=_("Select the type of message to display."),
-        values=("info", "warning", "error"),
-        required=False,
-        # default="info",
-    )
-    
-    show_title = schema.Bool(
-        title=_("Show message type (Title)"),
-        required=False,
-    )
-    
-    directives.widget(
-        "message",
-        RichTextFieldWidget,
-        pattern_options=PATTERN_OPTIONS,
-    )
-    message = RichText(
-        title=_("Message"),
-        description=_("The message shown to the user. NOTE: You can use  '${}' variables (see below))"),
-        required=True,
-    )
-    
-    user_filter = schema.Bool(
-        title=_("label_user_filter", default="Show to all"),
-        default=True,
-        required=False,
-    )
-    
-    message_users = schema.Set(
-        title=_("label_notify_users", default="Notify users"),
-        description="",
-        required=False,
-        value_type=schema.Choice(vocabulary="plone.app.vocabularies.Principals"),
-    )
-    
-    additional_users = schema.TextLine(
-        title=_("Additional notification user(s)"),
-        description=_("Use  '${}' variables list below (for example ${user_id} )"),
-        required=False
-    )
-
-    time_filter = schema.Bool(
-        title=_("label_time_filter", default="Show immidiately"),
-        default=True,
-        required=False, 
-    )
-       
-    relative_time = schema.Time(
-        title=_("Time of day"),
-        description=_("(From) what time of day, hours:minutes)"),
-        required=False, 
-    )
-    
-    effective_date = schema.Datetime(
-        title=_("Specific date to show notification"),
-        description=_("Effective date. Dont set this if you use time settings above."), 
-        required=False, 
-    )
-    
-    # fieldset('date',
-    #     label=u'Dates',
-    #     fields=['relative_time', 'effective_date']
-    # ) 
-    
-    
-    # message_assigned = schema.List(
-    #     title=_("Mark message as read"),
-    #     required=False,
-    #     value_type=schema.TextLine(),
-        
+    # message_type = schema.Choice(
+    #     title=_("Message type"),
+    #     description=_("Select the type of message to display."),
+    #     values=("info", "warning", "error", "basic"),
+    #     required=True,
+    #     default="info",
     # )
     
+    # show_title = schema.Bool(
+    #     title=_("Show message type (Title)"),
+    #     required=False,
+    # )
+    
+    # directives.widget(
+    #     "message",
+    #     RichTextFieldWidget,
+    #     pattern_options=PATTERN_OPTIONS,
+    # )
+    # message = RichText(
+    #     title=_("Message"),
+    #     description=_("The message shown to the user. NOTE: You can use  '${}' variables (see below))"),
+    #     required=True,
+    # )
+    
+    # user_filter = schema.Bool(
+    #     title=_("label_user_filter", default="Show to all"),
+    #     default=True,
+    #     required=False,
+    # )
+    
+    # message_users = schema.Set(
+    #     title=_("label_notify_users", default="Choose Users"),
+    #     description="",
+    #     required=False,
+    #     value_type=schema.Choice(vocabulary="plone.app.vocabularies.Users"),
+    # )
+    
+    # message_groups = schema.Set(
+    #     title=_("label_notify_groups", default="Choose Groups"),
+    #     description="",
+    #     required=False,
+    #     value_type=schema.Choice(vocabulary="plone.app.vocabularies.Groups"),
+    # )
+        
+    # additional_users = schema.TextLine(
+    #     title=_("Additional notification user(s)"),
+    #     description=_("Use  '${}' variables list below (for example ${user_id} )"),
+    #     required=False
+    # )
+
+    # time_filter = schema.Bool(
+    #     title=_("label_time_filter", default="Show immidiately"),
+    #     default=True,
+    #     required=False, 
+    # )
+       
+    # relative_time = schema.Time(
+    #     title=_("Time of day"),
+    #     description=_("(From) what time of day, hours:minutes)"),
+    #     required=False, 
+    # )
+    
+    # effective_date = schema.Date(
+    #     title=_("Specific date to show notification"),
+    #     description=_("Effective date."), 
+    #     required=False, 
+    # )
+    
+ 
     
     
 
@@ -266,7 +139,8 @@ class NotifyAddActionExecutor:
 
     def __call__(self):
         # request = self.context.REQUEST
-        portal = api.portal.get()
+        portal = api.portal.get()                
+        container =  portal.get('notifications', portal)
         obj = self.event.object
         interpolator = IStringInterpolator(obj)
         message = interpolator(self.element.message.raw)
@@ -278,18 +152,18 @@ class NotifyAddActionExecutor:
         additional_users = self.element.additional_users  
         relative_time  = self.element.relative_time  
         effective_date =  self.element.effective_date
-        
-        container =  portal.get('notifications', portal)
+        message_groups = self.element.message_groups
 
-        
+
+        # Will will do all the logic in handlers
         obj = api.content.create(
             type='Notification',
             title='Notification',
-            # message = message, 
             message  = RichTextValue(message),
             message_type = message_type,
             show_title =  show_title,
             message_users = message_users,
+            message_groups = message_groups,
             message_assigned = [],
             time_filter = time_filter,
             user_filter = user_filter ,
@@ -298,8 +172,6 @@ class NotifyAddActionExecutor:
             relative_time = relative_time ,
             container=container,
         )
-        
-        # IStatusMessage(request).addStatusMessage(message, type=message_type)
         
         return True
 

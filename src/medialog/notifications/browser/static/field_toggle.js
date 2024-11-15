@@ -1,38 +1,28 @@
-
 $(document).ready(function () {
     var usersFilterCheckbox = $("#form-widgets-user_filter-0");
-    var usersField = $("#formfield-form-widgets-message_users");
-    var additionalUsers = $("#formfield-form-widgets-additional_users");
-
-    function toggleUsers() {
-        if (usersFilterCheckbox.is(":checked")) {
-            usersField.hide();
-            additionalUsers.hide();
-        } else {
-            usersField.show();
-            additionalUsers.show();
-        }
-    }
-
     var timeFilterCheckbox = $("#form-widgets-time_filter-0");
-    var relativeTimeField = $("#formfield-form-widgets-relative_time");
-    var effectiveTimeField = $("#formfield-form-widgets-effective_date");
 
-    function toggleRelativeTime() {
-        if (timeFilterCheckbox.is(":checked")) {
-            relativeTimeField.hide();
-            effectiveTimeField.hide();
-        } else {
-            relativeTimeField.show();
-            effectiveTimeField.show();
-        }
+    var fields = {
+        users: [
+            $("#formfield-form-widgets-message_users"),
+            $("#formfield-form-widgets-message_groups"),
+            $("#formfield-form-widgets-additional_users")
+        ],
+        time: [
+            $("#formfield-form-widgets-relative_time"),
+            $("#formfield-form-widgets-effective_date")
+        ]
+    };
+
+    function toggleFields(checkbox, fieldsGroup) {
+        fieldsGroup.forEach(field => field.toggle(!checkbox.is(":checked")));
     }
 
     // Initialize visibility on page load
-    toggleRelativeTime();
-    toggleUsers();
+    toggleFields(usersFilterCheckbox, fields.users);
+    toggleFields(timeFilterCheckbox, fields.time);
 
-    // Add event listener to the checkbox to toggle visibility on change
-    timeFilterCheckbox.on("change", toggleRelativeTime);
-    usersFilterCheckbox.on("change", toggleUsers);
+    // Add event listeners to the checkboxes
+    usersFilterCheckbox.on("change", () => toggleFields(usersFilterCheckbox, fields.users));
+    timeFilterCheckbox.on("change", () => toggleFields(timeFilterCheckbox, fields.time));
 });

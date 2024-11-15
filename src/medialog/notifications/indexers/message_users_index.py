@@ -14,8 +14,27 @@ def dummy(obj):
     raise AttributeError('This field should not be indexed here!')
 
 
+
+
+def get_groups(message_groups):
+    users = []
+    for entry in message_groups:
+        groupmembers = api.user.get_users(groupname=entry)
+        for groupmember in groupmembers:
+            users.append(groupmember.getId())
+    
+    return set(users)
+                
+
+def get_users(message_users):
+    users = []
+    for entry in message_users:
+        users.append(entry)
+          
+    return set(users)
+    
+
 @indexer(INotification)  # ADJUST THIS!
-# @indexer(IDexterityContainer)  # ADJUST THIS!
 def message_usersIndexer(obj):
     """Calculate and return the value for the indexer"""
     # get all users of all groups
@@ -23,19 +42,14 @@ def message_usersIndexer(obj):
     users = []
     
     for entry in obj.message_users:
-        #TO DO: very strange that this info is stored as string
-        # Check if there is another vocabulary
-        entrylist = entry.split(':')
-        if entrylist[0] == 'group':
-            groupmembers = api.user.get_users(groupname=entrylist[1])
-            for groupmember in groupmembers:
-                users.append(groupmember.getId())
-                
-        if entrylist[0] == 'user':
-            users.append(entrylist[1])
-    
+        users.append(entry)
+        
+    for entry in obj.message_groups:
+        groupmembers = api.user.get_users(groupname=entry)
+        for groupmember in groupmembers:
+            users.append(groupmember.getId())
+        
     if users:
         return set(users)
-
-
- 
+    
+    

@@ -7,7 +7,7 @@
       <metal:block define-macro="content-core">
         <tal:define tal:define="user view/get_user|None">
 
-          <h1>${user}'s Notifications summary</h1>
+          <h1>${user/fullname}'s Notifications summary</h1>
           <!-- <p>TO DO, show only 'assigned to me'</p> -->
           <!-- <p>TO DO: Should only be possible to delete if it is 'only for me'</p> -->
 
@@ -16,7 +16,9 @@
 
             <div tal:define="obj python:item.getObject(); 
                           message_type obj/message_type|None;
-                          mes_type python: 'danger' if message_type == 'error' else message_type" class="flex flex-wrap">
+                          read python: user['id'] not in obj.message_assigned;
+                          mes_type python: 'danger' if message_type == 'error' else message_type" 
+                          class="flex flex-wrap read-${read}">
               <div class="flex-grow-1 portalMessage statusmessage statusmessage-${message_type} alert alert-${mes_type}" role="alert">
                 <tal:condition tal:condition="obj/show_title|None">
                   <a title="open note" href="${item/getURL}">
@@ -33,8 +35,10 @@
                 <!-- <p class="padmar-0" tal:condition="python: obj.message_assigned == [user]">
                   <a class="button btn btn-secondary pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/delete_confirmation">Delete</a>
                 </p> -->
-                <p>
-                  <a class="xpat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/remove-notification?item=${item/UID}">✔ Got it!</a>
+                <p >
+                  <!-- <a tal:condition="read">Read</a> -->
+                
+                  <a tal:condition="not:read" href="${item/getURL}/remove-notification?item=${item/UID}">✔ Got it!</a>
                 </p>
 
 
@@ -50,11 +54,19 @@
                           .flex-grow-1 {flex-grow: 1}
                           .padding-10 {padding-left: 10px;}
                           p.padmar-0 {padding: 0; margin:0 }
-                          .read-True .portalMessage {opacity: 0.35}
+                          .read-True .portalMessage {
+                            opacity: 0.7; animation-fill-mode: none; animation-delay: 0s!important; animation: 1.5s none;}
                           .notification-viewlet {display: none}
                           .alert- {background: whitesmoke}
                           .alert a {text-decoration: none !important}
           </style>
+          
+          <tal:condition tal:condition="not: view/show_all">
+          <a class="show-all-btn" href="?show_all=1" class="button btn standalone primary" id="show-all-btn">Show All</a></tal:condition>
+           <tal:condition tal:condition="view/show_all">
+          <a class="show-all-btn" href="?nothing" class="button btn standalone  secondary" id="show-all-btn">Show Only Unread</a></tal:condition>
+         
+ 
         </tal:define>
       </metal:block>
     </metal:content-core>

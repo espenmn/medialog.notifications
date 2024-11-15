@@ -24,22 +24,30 @@ class NotificationsView(BrowserView):
     def get_user(self):
         user = api.user.get_current()
         user_id = user.getId()
-        
         if user_id:
-            return user.getProperty("fullname")
-        
+            return {'fullname':user.getProperty("fullname"), 'id': user_id}
         #TO DO: What do we do for 'anon'?
-        return 'anon'
+        return {'fullname': 'anon', 'id': None}
     
-        
+    @property
+    def show_all(self):
+        showall = self.request.get('show_all', 0)
+        return showall
+        # if showall == 0:
+        #     return 0
+        # else:
+        #     return 1
     
-    #TO DO, cache (?)
     def get_items(self):
-        user = api.user.get_current().getId()
-        # Not filter in template
-        #user = api.user.get_current()
+        # Determine if `show_all` should be active
+        
+        show_all = self.show_all
+        user = api.user.get_current().getId() 
         today = DateTime()
         
-        return self.context.portal_catalog(portal_type=['Notification'], message_assigned=user, effective={"query": today, "range": "max"}, sort_on="created", sort_order="reverse")
+        if not show_all:
+            return self.context.portal_catalog(portal_type=['Notification'], message_assigned=user, effective={"query": today, "range": "max"}, sort_on="created", sort_order="reverse")
+        else:
+            return self.context.portal_catalog(portal_type=['Notification'], message_users=user, effective={"query": today, "range": "max"}, sort_on="created", sort_order="reverse")
         
         
