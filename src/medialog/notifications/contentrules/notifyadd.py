@@ -281,40 +281,7 @@ class NotifyAddActionExecutor:
         
         container =  portal.get('notifications', portal)
 
-    
-    
-        #Move these to handler since we have the same for manually added notes
-        # if time_filter:
-        #     effective_date = None
-        # else:
-        #     effective_date = self.element.effective_date
         
-        # #import pdb; pdb.set_trace()
-        # if not effective_date and not time_filter and self.element.relative_time:
-        #     # today_date = datetime.now().date()
-        #     relative_time = self.element.relative_time
-        #     effective_date = datetime.combine(datetime.now().date(), relative_time )
-        #     if relative_time < datetime.now().time():
-        #         effective_date = effective_date + timedelta(days=1)
-        
-        
-        # add users from 'variable field'
-        # if self.element.additional_users:
-        #     more_users = interpolator(self.element.additional_users)
-        #     if type(more_users) == str:
-        #         userlist = more_users.split(", ")
-        #         for user in userlist:
-        #             # Check if user exist
-        #             if api.user.get(username=user):
-        #                 message_users.add(f"user:{user}")
-                        
-        # if self.element.user_filter:
-        #     userlist = api.user.get_users()
-        #     for user in userlist:
-        #         message_users.add(f"user:{user}")
-            
-        
-        #TO DO: Should we both add noti fy or should be just save it.
         obj = api.content.create(
             type='Notification',
             title='Notification',
