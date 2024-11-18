@@ -13,6 +13,7 @@ from plone.app.textfield import RichText
 from plone.app.z3cform.widget import RichTextFieldWidget
 
 
+
 PATTERN_OPTIONS = {
     "tiny": {
             "menu": {
