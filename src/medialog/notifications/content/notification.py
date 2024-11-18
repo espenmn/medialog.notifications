@@ -203,7 +203,19 @@ class INotification(model.Schema):
         title=_("Time of day"),
         description=_("(From) what time of day, hours:minutes)"),
         required=False, 
+        
     )
+    
+    # directives.widget(
+    #     "test",
+    #     pattern_options= {"data-pat-depends": "condition: not time_filter" }
+         
+    # )
+    # test = schema.Time(
+    #     title=_("Test"),
+    #     required=False,  
+    # )
+    
     
     effective_date = schema.Date(
         title=_("Specific date to show notification"),

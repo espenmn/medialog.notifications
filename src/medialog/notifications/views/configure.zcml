@@ -7,6 +7,14 @@
  <!-- -*- extra stuff goes here -*- -->
 
   <browser:page
+    name="email-notification-view"
+    for="*"
+    class=".email_notification_view.EmailNotificationView"
+    permission="zope2.View"
+    layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
+    />
+
+  <browser:page
     name="remove-notification"
     for="*"
     class=".remove_notification.RemoveNotification"

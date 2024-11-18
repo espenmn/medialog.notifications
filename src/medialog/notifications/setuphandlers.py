@@ -11,19 +11,10 @@ from Products.CMFPlone.interfaces import INonInstallable
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implementer
 #from plone import api
-import os
-from plone.namedfile.file import NamedBlobImage
-from plone.namedfile.file import NamedBlobFile
+# import os
 
-from plone.base.interfaces import constrains
-from plone.base.interfaces.constrains import IConstrainTypes
-from plone.base.interfaces.constrains import ISelectableConstrainTypes
-
-import pandas as pd
-import openpyxl
-from zope.lifecycleevent import modified
 import plone.api
-from zope.component.hooks import setSite
+# from zope.component.hooks import setSite
 
 @implementer(INonInstallable)
 class HiddenProfiles(object):
@@ -43,6 +34,11 @@ def post_install(context):
     """Post install script"""
     # Do something at the end of the installation of this package.
     portal = plone.api.portal.get()
+    
+    # portal_memberdata = getToolByName(portal, "portal_memberdata")
+    # if not portal_memberdata.hasProperty("notifications"):
+    #     portal_memberdata.manage_addProperty(id="notifications", value="", type="string")
+
     _create_content(portal)
 
 

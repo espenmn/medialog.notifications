@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model xmlns="http://namespaces.plone.org/supermodel/schema"
+       xmlns:form="http://namespaces.plone.org/supermodel/form"
+       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+       xmlns:users="http://namespaces.plone.org/supermodel/users"
+       i18n:domain="plone"
+>
+  <schema name="member-notifications" purge="False">
+    <field name="notifications"
+           type="zope.schema.URI"
+           users:forms="In User Profile">
+   
+      <required>False</required>
+      <title i18n:translate="label_notificatons">Notifications</title>
+    </field>
+    
+  </schema>
+</model>
