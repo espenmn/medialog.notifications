@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('DOMNodeInserted', function(e) {
     var usersFilterCheckbox = $("#form-widgets-user_filter-0");
     var timeFilterCheckbox = $("#form-widgets-time_filter-0");
 
@@ -14,8 +14,9 @@ $(document).ready(function () {
         ]
     };
 
+
     function toggleFields(checkbox, fieldsGroup) {
-        fieldsGroup.forEach(field => field.toggle(!checkbox.is(":checked")));
+        fieldsGroup.forEach(field => field.toggle(!checkbox.is(":checked")));        
     }
 
     // Initialize visibility on page load
@@ -25,4 +26,7 @@ $(document).ready(function () {
     // Add event listeners to the checkboxes
     usersFilterCheckbox.on("change", () => toggleFields(usersFilterCheckbox, fields.users));
     timeFilterCheckbox.on("change", () => toggleFields(timeFilterCheckbox, fields.time));
+
+    
 });
+

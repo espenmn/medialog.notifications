@@ -4,6 +4,7 @@
     i18n:domain="medialog.notifications">
 
   <!-- Javascript -->
+
   <records prefix="plone.bundles/medialognotificatons"
             interface='Products.CMFPlone.interfaces.IBundleRegistry'>
     <value key="enabled">True</value>
@@ -12,6 +13,7 @@
     <value key="compile">False</value>
     <value key="depends">plone</value>
     <value key="merge_with">logged-in</value>
+     <value key="expression">python:'++rule++' in request.URL</value>
   </records>
 
 
