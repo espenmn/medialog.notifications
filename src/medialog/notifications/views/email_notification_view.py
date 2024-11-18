@@ -16,7 +16,8 @@ from zope.component import adapter, getUtility
 from zope.interface.interfaces import ComponentLookupError
 from zope.interface import implementer, Interface
 from plone import api
-from datetime import datetime
+# from datetime import datetime
+from DateTime import DateTime
 from DocentIMS.ActionItems.interfaces import IDocentimsSettings
 from plone.protect.utils import safeWrite
 
@@ -33,7 +34,7 @@ class EmailNotificationView(BrowserView):
         #4 Find/Batch 'notification users' ?
         #5 Send email
         #6 Should email be just 'reminder' or should it include the notifications in the email?      
-        now = datetime.now()
+        #now = datetime.now()
         # import logging
         # logger = logging.getLogger(__file__)
         
@@ -49,10 +50,11 @@ class EmailNotificationView(BrowserView):
 
         self.email_charset = self.mail_settings.email_charset
         
-        # To do 'check on date newer than today
+        # To do 'check on date = last 24 hours
         # Is it best to loop users or loop notifications?
         for user in  api.user.get_users():
-          brains = self.context.portal_catalog(portal_type=['Notification'], message_assigned = user.id) 
+          brains = self.context.portal_catalog(portal_type=['Notification'], message_assigned = user.id, effective = {'query': [DateTime() - 1], 'range': 'min'}  # Last 24 hours
+)
           
           messages = ''
           count = 0
