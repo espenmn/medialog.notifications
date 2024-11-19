@@ -21,9 +21,12 @@
               <div class="flex-grow-1 portalMessage statusmessage statusmessage-${message_type} alert alert-${mes_type}" role="alert">
 
                 <table width="100%">
-                  <tr>
-                    <th>Hello ${user/fullname}</th>
-                    <th align="right">${obj/effective}</th>
+                  <tr width="100%">
+                    <td width="50%"><b>Hello ${user/fullname}</b></td>
+                    <td width="50%" class="text-right" tal:define="effective obj/effective; created obj/created">
+                    <span tal:condition="python: effective > created">Shown: <b>${python: effective.strftime('%m/%d/%Y %I:%M %p')}</b></span>
+                    <span tal:condition="python: effective <= created">Created: <b>${python: created.strftime('%m/%d/%Y %I:%M %p')}</b></span>
+                    </td>
                   </tr>
                   <tr>
                     <td>From: <span tal:define="creator context/Creator;
@@ -67,6 +70,7 @@
                           .notification-viewlet {display: none}
                           .alert- {background: whitesmoke}
                           .alert a {text-decoration: none !important}
+                          .text-right {text-align: right;}
           </style>
 
           <tal:condition tal:condition="not: view/show_all">
