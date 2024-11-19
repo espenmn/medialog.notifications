@@ -18,4 +18,13 @@
       directory="static"
       />
 
+    <!-- <browser:page
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      name="personal-preferences"
+      class=".personalpreferences.CustomPersonalPreferencesPanel"
+      permission="cmf.SetOwnProperties"
+      layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
+      /> -->
+
+
 </configure>

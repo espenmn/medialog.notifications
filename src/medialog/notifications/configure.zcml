@@ -65,8 +65,6 @@
         name="notification_to"
     />
 
-    <!-- <adapter
-        factory=".userdataschema.UserDataPanelExtender"
-        provides="plone.z3cform.fieldsets.interfaces.IFormExtender" /> -->
+ 
 
 </configure>
