@@ -17,4 +17,35 @@ class NotificationTo(BaseSubstitution):
         return ''
 
 
+# # testing adding personal settings
+# from plone.app.users.browser.personalpreferences import IPersonalPreferences
+# from zope.interface import Interface
+# from zope import schema
 
+
+# class IEnhancedUserDataSchema(IPersonalPreferences):
+#     """ Use all the fields from the default user data schema, and add various
+#     extra fields.
+#     """
+
+#     buttonsEnabled = schema.Bool(title=u'Transition button widget.', 
+#                                 default=True,
+#                                 description=u'Uncheck to remove the transition button box from ALL pages.',
+#                                 required=False
+#                                 )  
+    
+    
+# from plone.app.users.browser.personalpreferences import PersonalPreferencesPanelAdapter
+# from zope.interface import implementer
+
+# @implementer(IEnhancedUserDataSchema)
+# class EnhancedUserDataPanelAdapter(PersonalPreferencesPanelAdapter):
+#     """
+#     """
+    
+
+#     def get_buttonEnabled(self):
+#         return self.context.getProperty('buttonsEnabled', '')
+#     def set_buttonsEnabled(self, value):
+#         return self.context.setMemberProperties({'buttonsEnabled': value})
+#     buttonsEnabled = property(get_buttonEnabled, set_buttonsEnabled)

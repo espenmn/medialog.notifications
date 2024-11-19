@@ -66,5 +66,12 @@
     />
 
  
+   <!-- <adapter
+      factory=".adapters.EnhancedUserDataPanelAdapter"
+      provides=".adapters.IEnhancedUserDataSchema"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      />
+  -->
+
 
 </configure>

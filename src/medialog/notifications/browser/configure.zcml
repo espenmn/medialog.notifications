@@ -26,5 +26,14 @@
       layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
       /> -->
 
+  <!-- <browser:page
+      name="personal-preferencesx"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      class=".personalpreferences.PersonalPreferencesPanel"
+      permission="cmf.SetOwnProperties"
+      layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
+      />
+       -->
+
 
 </configure>

@@ -6,7 +6,7 @@
     <field type="plone.registry.field.TextLine"/>
     <value>++plone++bootstrap-icons/stickies-fill.svg</value>
   </record>
-  <record name="plone.icon.contenttype/Notefication">
+  <record name="plone.icon.contenttype/notefication">
     <field type="plone.registry.field.TextLine">
       <title>Notefication</title>
     </field>

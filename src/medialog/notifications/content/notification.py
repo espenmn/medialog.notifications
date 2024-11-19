@@ -224,7 +224,7 @@ class INotification(model.Schema):
         required=False, 
     )    
     
-     #Maybe a condition would be better ??
+    #Maybe a condition would be better ??
     #If so, it is possible to see who has not seen the Notification
     directives.mode(message_assigned='hidden')
     message_assigned = schema.List(
@@ -235,6 +235,7 @@ class INotification(model.Schema):
         missing_value=[]
     )
     
+    directives.mode(show_title='hidden')
     show_title = schema.Bool(
         title=_("Show message type (Title)"),
         required=False,

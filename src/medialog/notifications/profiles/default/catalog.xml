@@ -7,5 +7,5 @@
     <indexed_attr value="message_assigned"/>
   </index>
   <column value="message_users"/>
-  <column value="message_assigned"/>
+  <column value="message_not_cleared"/>
 </object>
