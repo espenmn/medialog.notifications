@@ -33,14 +33,8 @@ class NotificationsView(BrowserView):
     def show_all(self):
         showall = self.request.get('show_all', 0)
         return showall
-        # if showall == 0:
-        #     return 0
-        # else:
-        #     return 1
-    
-    def get_items(self):
-        # Determine if `show_all` should be active
         
+    def get_items(self):
         show_all = self.show_all
         user = api.user.get_current().getId() 
         today = DateTime()

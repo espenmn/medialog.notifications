@@ -18,7 +18,7 @@
     name="remove-notification"
     for="*"
     class=".remove_notification.RemoveNotification"
-    permission="cmf.ModifyPortalContent"
+    permission="zope2.View"
     layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
     />
 
@@ -27,7 +27,7 @@
     for="plone.base.interfaces.IPloneSiteRoot"
     class=".notifications_view.NotificationsView"
     template="notifications_view.pt"
-    permission="cmf.ModifyPortalContent"
+    permission="zope2.View"
     layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
     />
 
@@ -36,7 +36,7 @@
     for="medialog.notifications.content.notification.Notification"
     class=".notification_view.NotificationView"
     template="notification_view.pt"
-    permission="cmf.ModifyPortalContent"
+    permission="zope2.View"
     layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
     />
 

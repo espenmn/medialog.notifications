@@ -49,6 +49,13 @@ def handler(obj, event):
             
     message_assigned =  get_users(message_users).union(get_groups(obj.message_groups))
     
+    for user_id in message_assigned:
+        api.user.grant_roles(
+            username=user_id,
+            obj=obj,
+            roles=['Reader'],
+        )
+    
                                
     
     time_filter= obj.time_filter

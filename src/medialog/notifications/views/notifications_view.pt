@@ -17,81 +17,39 @@
             <div tal:define="obj python:item.getObject(); 
                           message_type obj/message_type|None;
                           read python: user['id'] not in obj.message_assigned;
-                          mes_type python: 'danger' if message_type == 'error' else message_type" 
-                          class="flex flex-wrap read-${read}">
+                          mes_type python: 'danger' if message_type == 'error' else message_type" class="flex flex-wrap read-${read}">
               <div class="flex-grow-1 portalMessage statusmessage statusmessage-${message_type} alert alert-${mes_type}" role="alert">
-                <tal:condition tal:condition="obj/show_title|None">
-                  <!-- <a title="open note" href="${item/getURL}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="plone-icon statusmessage-icon mb-1 me-2 bi bi-${message_type}-circle-fill" viewBox="0 0 16 16" aria-labelledby="title">
-                      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"></path>
-                      <title>statusmessage_mtype_message_type</title>
-                    </svg>
-                  </a> -->
-                  <!-- <strong>${message_type}</strong> -->
-                </tal:condition>
 
-
-          <!-- <div class="portalMessage statusmessage statusmessage-${message_type} alert alert-${mes_type}" role="alert">
-            <tal:with-fullname define="membership context/portal_membership;info python:membership.getMemberInfo(user.getId()); fullname info/first_name|info/fullname">
-    Hello <span class="name" tal:content="fullname" />
-            </tal:with-fullname> -->
-
-
-            <!-- <p>Message from: <span tal:define="creator context/Creator;
+                <table width="100%">
+                  <tr>
+                    <th>Hello ${user/fullname}</th>
+                    <th align="right">${obj/effective}</th>
+                  </tr>
+                  <tr>
+                    <td>From: <span tal:define="creator context/Creator;
                mtool context/@@plone_tools/membership;
                author python:mtool.getMemberInfo(creator)" tal:content="python:author and author['fullname'] or creator">Author name</span>
-            </p> -->
 
- <!-- <tal:with-fullname define="membership context/portal_membership;info python:membership.getMemberInfo(user.getId()); fullname info/first_name|info/fullname">
-    Hello <span class="name" tal:content="fullname" />
-            </tal:with-fullname> -->
-<!-- 
-            <p>Hello ${user/fullname}</p>
-            
-            <p><hr/></p>
+                    </td>
 
-                <div tal:replace="structure obj/message/output|None" />
-                 <p><hr/></p> -->
-                 <!-- <table class="listing">
-                <tr>
-                <td>Message from: <span tal:define="creator context/Creator;
-               mtool context/@@plone_tools/membership;
-               author python:mtool.getMemberInfo(creator)" 
-               tal:content="python:author and author['fullname'] or creator">Author name</td>
-              <td> <b>at</b> ${obj/effective}  <b>created</b> ${obj/created}</td>
-              </tr>
-              </table> -->
-              <table width="100%">
-  <tr>
-    <th>Hello ${user/fullname}</th> 
-    <th align="right">${obj/effective}</th>
-  </tr>
-  <tr>
-    <td>From: <span tal:define="creator context/Creator;
-               mtool context/@@plone_tools/membership;
-               author python:mtool.getMemberInfo(creator)" 
-               tal:content="python:author and author['fullname'] or creator">Author name</span>
-    
-    </td>
- 
-  </tr>
-  <tr><td colspan="2"><hr/></td></tr>
-  
-  <tr ><td colspan="2"><div tal:replace="structure obj/message/output|None" /></td></tr>
-</table>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <hr/>
+                    </td>
+                  </tr>
+
+                  <tr >
+                    <td colspan="2">
+                      <div tal:replace="structure obj/message/output|None" />
+                    </td>
+                  </tr>
+                </table>
               </div>
               <div class="padding-10">
-                <!-- <p class="padmar-0" tal:condition="python: obj.message_assigned == [user]">
-                  <a class="button btn btn-secondary pat-plone-modal" data-pat-plone-modal="{}" href="${item/getURL}/delete_confirmation">Delete</a>
-                </p> -->
-                <p >
-                  <!-- <a tal:condition="read">Read</a> -->
-                  
-                
+                <p>
                   <a tal:condition="not:read" href="${item/getURL}/remove-notification?item=${item/UID}">✔ Got it!</a>
                 </p>
-
-
               </div>
               <!-- ${obj/message_users} -->
 
@@ -110,13 +68,15 @@
                           .alert- {background: whitesmoke}
                           .alert a {text-decoration: none !important}
           </style>
-          
+
           <tal:condition tal:condition="not: view/show_all">
-          <a class="show-all-btn" href="?show_all=1" class="button btn standalone primary" id="show-all-btn">Show All</a></tal:condition>
-           <tal:condition tal:condition="view/show_all">
-          <a class="show-all-btn" href="?nothing" class="button btn standalone  secondary" id="show-all-btn">Show Only Unread</a></tal:condition>
-         
- 
+            <a class="show-all-btn" href="?show_all=1" class="button btn standalone primary" id="show-all-btn">Show All</a>
+          </tal:condition>
+          <tal:condition tal:condition="view/show_all">
+            <a class="show-all-btn" href="?nothing" class="button btn standalone  secondary" id="show-all-btn">Show Only Unread</a>
+          </tal:condition>
+
+
         </tal:define>
       </metal:block>
     </metal:content-core>

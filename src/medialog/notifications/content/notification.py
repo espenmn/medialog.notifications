@@ -11,6 +11,7 @@ from zope import schema
 from zope.interface import implementer
 from plone.app.textfield import RichText
 from plone.app.z3cform.widget import RichTextFieldWidget
+from plone.autoform.directives import read_permission, write_permission
 
 
 
@@ -149,6 +150,8 @@ class INotification(model.Schema):
     # model.load('notification.xml')
 
     # directives.write_permission(message='cmf.ManagePortal')
+    read_permission(message_type='cmf.ModifyPortalContent')
+    write_permission(message_type='cmf.ModifyPortalContent')
     message_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),
@@ -157,23 +160,31 @@ class INotification(model.Schema):
         default="info",
     )
     
+    
     directives.widget(
         "message",
         RichTextFieldWidget,
         pattern_options=PATTERN_OPTIONS,
     )
+    
+    read_permission(message='cmf.ModifyPortalContent')
+    write_permission(message='cmf.ModifyPortalContent')
     message = RichText(
         title=_("Message"),
         description=_("The message shown to the user. NOTE: You can use  '${}' variables (see below))"),
         required=True,
     )
     
+    read_permission(user_filter='cmf.ModifyPortalContent')
+    write_permission(user_filter='cmf.ModifyPortalContent')
     user_filter = schema.Bool(
         title=_("label_user_filter", default="Show to all"),
         default=True,
         required=False,
     )
     
+    read_permission( message_users='cmf.ModifyPortalContent')
+    write_permission( message_users='cmf.ModifyPortalContent')
     message_users = schema.Set(
         title=_("label_notify_users", default="Notify users"),
         description="",
@@ -181,6 +192,8 @@ class INotification(model.Schema):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Users"),
     )
     
+    read_permission(message_groups='cmf.ModifyPortalContent')
+    write_permission(message_groups='cmf.ModifyPortalContent')
     message_groups = schema.Set(
         title=_("label_notify_groups", default="Choose Groups"),
         description="",
@@ -188,18 +201,24 @@ class INotification(model.Schema):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Groups"),
     )
     
+    read_permission(additional_users='cmf.ModifyPortalContent')
+    write_permission(additional_users='cmf.ModifyPortalContent')
     additional_users = schema.TextLine(
         title=_("Additional notification user(s)"),
         description=_("Use  '${}' variables list below (for example ${user_id} )"),
         required=False
     )
 
+    read_permission(time_filter='cmf.ModifyPortalContent')
+    write_permission(time_filter='cmf.ModifyPortalContent')
     time_filter = schema.Bool(
         title=_("label_time_filter", default="Show immidiately"),
         default=True,
         required=False, 
     )
-       
+    
+    read_permission(relative_time='cmf.ModifyPortalContent')
+    write_permission(relative_time='cmf.ModifyPortalContent')
     relative_time = schema.Time(
         title=_("Time of day"),
         description=_("(From) what time of day, hours:minutes)"),
@@ -217,7 +236,8 @@ class INotification(model.Schema):
     #     required=False,  
     # )
     
-    
+    read_permission(effective_date='cmf.ModifyPortalContent')
+    write_permission(effective_date='cmf.ModifyPortalContent')
     effective_date = schema.Date(
         title=_("Specific date to show notification"),
         description=_("Effective date."), 

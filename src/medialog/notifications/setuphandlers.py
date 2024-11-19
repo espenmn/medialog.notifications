@@ -58,7 +58,8 @@ def _create_content(portal):
             exclude_from_nav=True,
         )
         
-        plone.api.content.transition(obj=portal['notifications'], transition='publish')
+        # Dont publish folder, it should not be possible to show other peoples notes
+        # plone.api.content.transition(obj=portal['notifications'], transition='publish')
         
         #note_folder = portal.get('notifications', False)
         behaviour = constrains.ISelectableConstrainTypes(note_folder)

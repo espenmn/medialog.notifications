@@ -18,7 +18,7 @@ class RemoveNotification(BrowserView):
         
 
     def __call__(self):
-        context = self.context
+        # context = self.context
         user = api.user.get_current()
         item = self.request.get('item')
         obj  = api.content.get(UID=item) 
