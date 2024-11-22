@@ -49,5 +49,5 @@ class NotificationViewlet(ViewletBase):
         return None
         
  
-    # def index(self):
-    #     return super(NotificationViewlet, self).render()
+    def index(self):
+        return super(NotificationViewlet, self).render()
