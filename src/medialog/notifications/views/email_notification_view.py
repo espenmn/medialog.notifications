@@ -18,7 +18,6 @@ from zope.interface import implementer, Interface
 from plone import api
 # from datetime import datetime
 from DateTime import DateTime
-from DocentIMS.ActionItems.interfaces import IDocentimsSettings
 from plone.protect.utils import safeWrite
 
 
