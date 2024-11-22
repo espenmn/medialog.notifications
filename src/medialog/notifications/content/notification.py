@@ -3,6 +3,8 @@
 # from plone.namedfile import field as namedfile
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
+from plone import api
+from plone.api.portal import getRequest
 from medialog.notifications import _
 from plone.autoform import directives
 from plone.dexterity.content import Item
@@ -12,8 +14,8 @@ from zope.interface import implementer
 from plone.app.textfield import RichText
 from plone.app.z3cform.widget import RichTextFieldWidget
 from plone.autoform.directives import read_permission, write_permission
-
-
+from zope.schema.interfaces import IContextAwareDefaultFactory
+from zope.interface import provider
 
 PATTERN_OPTIONS = {
     "tiny": {
@@ -141,6 +143,22 @@ PATTERN_OPTIONS = {
     }
 } 
 
+@provider(IContextAwareDefaultFactory)
+def message_to(context=None):
+    """Default factory for the to field."""
+    request = getRequest()
+    message_to = request.get('message_to', None)  # Get 'date' parameter from request
+    if message_to and message_to != 'admin' and api.user.get(userid=message_to):
+        # To do: DO we need to find/check user?
+        # return as set?
+        return {message_to}
+    return None  # Fallback i
+
+def filter_factory():
+    if message_to():
+        return False
+    return True
+
 
 class INotification(model.Schema):
     """ Marker interface and Dexterity Python Schema for Notification
@@ -179,7 +197,7 @@ class INotification(model.Schema):
     write_permission(user_filter='cmf.ModifyPortalContent')
     user_filter = schema.Bool(
         title=_("label_user_filter", default="Show to all"),
-        default=True,
+        defaultFactory=filter_factory,
         required=False,
     )
     
@@ -190,6 +208,7 @@ class INotification(model.Schema):
         description="",
         required=False,
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Users"),
+        defaultFactory=message_to
     )
     
     read_permission(message_groups='cmf.ModifyPortalContent')
