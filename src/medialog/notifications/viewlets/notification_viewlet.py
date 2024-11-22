@@ -2,11 +2,16 @@
 
 from plone.app.layout.viewlets import ViewletBase
 from plone import api
-
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+# import datetime
+# from DateTime import DateTime
+# from Products.Five.browser import BrowserView
+from zope.interface import Interface
+from plone import api
+from datetime import datetime
+# import DateTime
 
-import datetime
-from DateTime import DateTime
+# from zope.interface import alsoProvides
 
 
  
@@ -31,7 +36,7 @@ class NotificationViewlet(ViewletBase):
 
     #TO DO, cache (?)
     def count_items(self):
-        today = DateTime()
+        today = datetime.now()
         
         user = api.user.get_current()
         user_id = user.getId()
