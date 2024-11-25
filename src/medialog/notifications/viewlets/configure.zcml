@@ -7,6 +7,16 @@
  <!-- -*- extra stuff goes here -*- -->
 
   <browser:viewlet
+     name="my-viewlet"
+     for="plone.app.contenttypes.interfaces.IDocument"
+     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+     layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
+     class=".my_viewlet.MyViewlet"
+     template="my-viewlet.pt"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
      name="notification-viewlet"
      for="plone.base.interfaces.IPloneSiteRoot"
      manager="plone.app.layout.viewlets.interfaces.IGlobalStatusMessage"
