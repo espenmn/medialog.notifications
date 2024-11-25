@@ -196,7 +196,8 @@ class INotification(model.Schema):
     read_permission(user_filter='cmf.ModifyPortalContent')
     write_permission(user_filter='cmf.ModifyPortalContent')
     user_filter = schema.Bool(
-        title=_("label_user_filter", default="Show to all"),
+        title=_("label_user_filter", default="Notify all"),
+        description=_("label_user_filter_desc", default="Notify Everybody")
         defaultFactory=filter_factory,
         required=False,
     )
@@ -204,8 +205,8 @@ class INotification(model.Schema):
     read_permission( message_users='cmf.ModifyPortalContent')
     write_permission( message_users='cmf.ModifyPortalContent')
     message_users = schema.Set(
-        title=_("label_notify_users", default="Notify users"),
-        description="",
+        title=_("label_notify_users", default="Notify Users"),
+        description=_("label_notify_users_desc", default="Notify Specific Members"),
         required=False,
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Users"),
         defaultFactory=message_to
@@ -214,8 +215,8 @@ class INotification(model.Schema):
     read_permission(message_groups='cmf.ModifyPortalContent')
     write_permission(message_groups='cmf.ModifyPortalContent')
     message_groups = schema.Set(
-        title=_("label_notify_groups", default="Choose Groups"),
-        description="",
+        title=_("label_notify_groups", default="Notify Groups"),
+        description=_("label_notify_groups_desc", default="Notify Specific Groups"),
         required=False,
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Groups"),
     )
@@ -232,6 +233,7 @@ class INotification(model.Schema):
     write_permission(time_filter='cmf.ModifyPortalContent')
     time_filter = schema.Bool(
         title=_("label_time_filter", default="Show immidiately"),
+        itle=_("label_time_filter_desc", default="Show Notifications immidiately"),
         default=True,
         required=False, 
     )
