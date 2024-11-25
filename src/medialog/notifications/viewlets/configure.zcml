@@ -6,7 +6,7 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
-  <browser:viewlet
+  <!-- <browser:viewlet
      name="my-viewlet"
      for="plone.app.contenttypes.interfaces.IDocument"
      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
@@ -14,7 +14,7 @@
      class=".my_viewlet.MyViewlet"
      template="my-viewlet.pt"
      permission="zope2.View"
-     />
+     /> -->
 
   <browser:viewlet
      name="notification-viewlet"
