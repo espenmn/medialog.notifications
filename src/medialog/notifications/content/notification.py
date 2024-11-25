@@ -197,7 +197,7 @@ class INotification(model.Schema):
     write_permission(user_filter='cmf.ModifyPortalContent')
     user_filter = schema.Bool(
         title=_("label_user_filter", default="Notify all"),
-        description=_("label_user_filter_desc", default="Notify Everybody")
+        description=_("label_user_filter_desc", default="Notify Everybody"),
         defaultFactory=filter_factory,
         required=False,
     )
@@ -233,7 +233,7 @@ class INotification(model.Schema):
     write_permission(time_filter='cmf.ModifyPortalContent')
     time_filter = schema.Bool(
         title=_("label_time_filter", default="Show immidiately"),
-        itle=_("label_time_filter_desc", default="Show Notifications immidiately"),
+        description=_("label_time_filter_desc", default="Show Notifications immidiately"),
         default=True,
         required=False, 
     )
