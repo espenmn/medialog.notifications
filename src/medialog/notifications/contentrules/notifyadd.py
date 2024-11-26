@@ -30,8 +30,8 @@ class INotifyAddAction(INotification):
     We reuse the fields from INotification
     And might add one more ?
     """
-    directives.mode(additional_users='visible')
-     
+    directives.mode(additional_users='display')
+    
 
 @implementer(INotifyAddAction, IRuleElementData)
 class NotifyAddAction(SimpleItem):
