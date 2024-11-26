@@ -5,11 +5,11 @@ from plone.app.contentrules.actions import ActionEditForm
 from plone.app.contentrules.browser.formhelper import ContentRuleFormWrapper
 from plone.contentrules.rule.interfaces import IExecutable
 from plone.contentrules.rule.interfaces import IRuleElementData
-from z3c.form import interfaces
+# from z3c.form import interfaces
 from plone import api
 from plone.autoform import directives
-from plone.app.textfield import RichText, RichTextValue
-from plone.app.z3cform.widget import RichTextFieldWidget 
+from plone.app.textfield import RichTextValue
+# from plone.app.z3cform.widget import RichTextFieldWidget 
 from plone.stringinterp.interfaces import IStringInterpolator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
  

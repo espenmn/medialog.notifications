@@ -221,8 +221,6 @@ class INotification(model.Schema):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Groups"),
     )
     
-    read_permission(additional_users='cmf.ModifyPortalContent')
-    write_permission(additional_users='cmf.ModifyPortalContent')
     directives.mode(additional_users='hidden')
     additional_users = schema.TextLine(
         title=_("Additional notification user(s)"),
