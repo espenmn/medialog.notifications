@@ -223,6 +223,7 @@ class INotification(model.Schema):
     
     read_permission(additional_users='cmf.ModifyPortalContent')
     write_permission(additional_users='cmf.ModifyPortalContent')
+    directives.mode(additional_users='hidden')
     additional_users = schema.TextLine(
         title=_("Additional notification user(s)"),
         description=_("Use  '${}' variables list below (for example ${user_id} )"),
