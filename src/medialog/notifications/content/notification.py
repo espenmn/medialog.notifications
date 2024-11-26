@@ -221,6 +221,12 @@ class INotification(model.Schema):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Groups"),
     )
     
+    additional_users = schema.TextLine(
+        title=_("Additional notification user(s)"),
+        description=_("Use  '${}' variables list below (for example ${user_id} )"),
+        required=False
+    )
+    
     read_permission(time_filter='cmf.ModifyPortalContent')
     write_permission(time_filter='cmf.ModifyPortalContent')
     time_filter = schema.Bool(
@@ -285,11 +291,7 @@ class INotification(model.Schema):
 class INotifications(model.Schema):
     
     directives.mode(additional_users='hidden')
-    additional_users = schema.TextLine(
-        title=_("Additional notification user(s)"),
-        description=_("Use  '${}' variables list below (for example ${user_id} )"),
-        required=False
-    )
+    
     
     
 

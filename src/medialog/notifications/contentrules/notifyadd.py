@@ -30,11 +30,11 @@ class INotifyAddAction(INotification):
     We reuse the fields from INotification
     And might add one more ?
     """
-    additional_users = schema.TextLine(
-        title=_("Additional notification user(s)"),
-        description=_("Use  '${}' variables list below (for example ${user_id} )"),
-        required=False
-    )
+    # additional_users = schema.TextLine(
+    #     title=_("Additional notification user(s)"),
+    #     description=_("Use  '${}' variables list below (for example ${user_id} )"),
+    #     required=False
+    # )
     
 
 @implementer(INotifyAddAction, IRuleElementData)
