@@ -30,6 +30,7 @@ class INotifyAddAction(INotification):
     We reuse the fields from INotification
     And might add one more ?
     """
+    directives.order_before(additional_users='time_filter')
     additional_users = schema.TextLine(
         title=_("Additional notification user(s)"),
         description=_("Use  '${}' variables list below (for example ${user_id} )"),

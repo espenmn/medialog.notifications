@@ -221,6 +221,13 @@ class INotification(model.Schema):
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Groups"),
     )
     
+    # directives.mode(additional_users='hidden')
+    # additional_users = schema.TextLine(
+    #     title=_("Additional notification user(s)"),
+    #     description=_("Use  '${}' variables list below (for example ${user_id} )"),
+    #     required=False
+    # )
+    
     read_permission(time_filter='cmf.ModifyPortalContent')
     write_permission(time_filter='cmf.ModifyPortalContent')
     time_filter = schema.Bool(
@@ -282,18 +289,14 @@ class INotification(model.Schema):
     
     
     
-class INotifications(model.Schema):
+# class INotifications(INotification):
     
-    directives.mode(additional_users='hidden')
-    additional_users = schema.TextLine(
-        title=_("Additional notification user(s)"),
-        description=_("Use  '${}' variables list below (for example ${user_id} )"),
-        required=False
-    )
+#     directives.mode(additional_users='hidden')
+
     
     
 
-@implementer(INotifications)
+@implementer(INotification)
 class Notification(Item):
     """ Content-type class for INotification
     """
