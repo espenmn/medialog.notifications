@@ -6,6 +6,10 @@
   <index name="message_assigned" meta_type="KeywordIndex">
     <indexed_attr value="message_assigned"/>
   </index>
+  <index name="notification_type" meta_type="FieldIndex">
+    <indexed_attr value="message_type"/>
+  </index>
   <column value="message_users"/>
   <column value="message_not_cleared"/>
+  <column value="notification_type"/>
 </object>

@@ -31,9 +31,10 @@ def handler(obj, event):
     
     
     # add users from 'variable field'
-    if obj.additional_users:
+    additional_users = getattr(obj, 'additional_users', None)
+    if additional_users:
         interpolator = IStringInterpolator(obj)
-        more_users = interpolator(obj.additional_users)
+        more_users = interpolator(additional_users)
         if type(more_users) == str:
             userlist = more_users.split(", ")
             for user in userlist:
