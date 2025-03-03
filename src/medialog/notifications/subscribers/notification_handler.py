@@ -27,7 +27,7 @@ def handler(obj, event):
     """ Event handler
     """
     # NOTE: if you modify the Notificaion, users who have read the Noteification are re-added
-    message_users =  obj.message_users 
+    message_users =  obj.message_users or set()
     
     
     # add users from 'variable field'
@@ -48,7 +48,7 @@ def handler(obj, event):
         for user in userlist:
             message_users.add(user.id)  
             
-    message_assigned =  get_users(message_users).union(get_groups(obj.message_groups))
+    message_assigned =  get_users(message_users).union(get_groups(obj.message_groups or set()))
     
     for user_id in message_assigned:
         api.user.grant_roles(

@@ -41,13 +41,15 @@ def message_usersIndexer(obj):
     # return all users
     users = []
     
-    for entry in obj.message_users:
-        users.append(entry)
-        
-    for entry in obj.message_groups:
-        groupmembers = api.user.get_users(groupname=entry)
-        for groupmember in groupmembers:
-            users.append(groupmember.getId())
+    if obj.message_users:
+        for entry in obj.message_users:
+            users.append(entry)
+    
+    if obj.message_groups:
+        for entry in obj.message_groups:
+            groupmembers = api.user.get_users(groupname=entry)
+            for groupmember in groupmembers:
+                users.append(groupmember.getId())
         
     if users:
         return set(users)

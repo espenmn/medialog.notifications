@@ -154,7 +154,7 @@ def message_to(context=None):
         return {message_to}
     return None  # Fallback i
 
-def filter_factory():
+def filter_factory(context=None):
     if message_to():
         return False
     return True
