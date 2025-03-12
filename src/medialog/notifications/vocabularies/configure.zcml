@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="medialog.notifications">
+
+    <!-- -*- extra stuff goes here -*- -->
+
+    <utility
+        component=".notification_types.NotificationTypesFactory"
+        name="medialog.notifications.NotificationTypes"
+    />
+
+
+</configure>

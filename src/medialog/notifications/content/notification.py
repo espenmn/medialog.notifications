@@ -16,8 +16,9 @@ from plone.app.z3cform.widget import RichTextFieldWidget
 from plone.autoform.directives import read_permission, write_permission
 from zope.schema.interfaces import IContextAwareDefaultFactory
 from zope.interface import provider
+from zope.interface import Interface
 
-notify_values = ("info", "warning", "error", )
+
 
 PATTERN_OPTIONS = {
     "tiny": {
@@ -175,7 +176,7 @@ class INotification(model.Schema):
     notification_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),
-        values=notify_values,
+        vocabularty="medialog.notifications.notification_types",
         required=True,
         default="info",
     )

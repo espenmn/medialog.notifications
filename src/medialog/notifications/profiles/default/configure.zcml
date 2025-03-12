@@ -1,0 +1,19 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="medialog.notifications">
+
+ <!-- -*- extra stuff goes here -*- -->
+
+  <browser:viewlet
+     name="notification-viewlet"
+     for="plone.base.interfaces.IPloneSiteRoot"
+     manager="plone.app.layout.viewlets.interfaces.IGlobalStatusMessage"
+     layer="notifyMedialogNotificationsLayer"
+     class=".notification_viewlet.NotificationViewlet"
+     template="notification-viewlet.pt"
+     permission="zope2.View"
+     />
+
+</configure>

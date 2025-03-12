@@ -25,11 +25,20 @@
     <value key="expression">python:'++rule++' in request.URL  or 'edit' in request.URL or '++Notification' in request.URL</value>
   </records>
 
+  <!-- notification types -->
+  <record name="medialog.notifications.notification_types">
+    <field type="plone.registry.field.List">
+     <value_type type="plone.registry.field.TextLine"/>
+    </field>
+      <value>
+        <element>info</element>
+        <element>warning</element>
+        <element>error</element>
+      </value>
+  </record>
 
 
   <!-- -*- Querystring -*- -->
-
-
   <!-- <records interface="plone.app.querystring.interfaces.IQueryField" prefix="plone.app.querystring.field.notification_type">
     <value key="title">Notification type</value>
     <value key="description">Notification type</value>

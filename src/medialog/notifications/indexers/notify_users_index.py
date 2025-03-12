@@ -8,12 +8,11 @@ from plone.indexer import indexer
 from plone import api
 
 
+
 @indexer(IDexterityContent)
 def dummy(obj):
     """ Dummy to prevent indexing other objects thru acquisition """
     raise AttributeError('This field should not be indexed here!')
-
-
 
 
 def get_groups(notify_groups):
