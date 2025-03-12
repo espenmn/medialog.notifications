@@ -176,7 +176,7 @@ class INotification(model.Schema):
     notification_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),
-        vocabularty="medialog.notifications.notification_types",
+        vocabulary="medialog.notifications.NotificationTypes",
         required=True,
         default="info",
     )
