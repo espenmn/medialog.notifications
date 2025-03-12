@@ -56,6 +56,7 @@ def _create_content(portal):
             id='notifications',
             title='Notifications',
             exclude_from_nav=True,
+            layout='full_view',
         )
         
         # Dont publish folder, it should not be possible to show other peoples notes

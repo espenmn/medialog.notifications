@@ -62,7 +62,7 @@
       <element>plone.app.querystring.operation.selection.none</element>
     </value>
     <value key="group">Metadata</value>
-    <!-- <value key="vocabulary">plone.app.vocabularies.Users</value> -->
+    <value key="vocabulary">medialog.notifications.NotificationTypes</value>
 
   </records>
 
