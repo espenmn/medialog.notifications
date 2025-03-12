@@ -4,8 +4,8 @@ $(document).on('DOMNodeInserted', function(e) {
 
     var fields = {
         users: [
-            $("#formfield-form-widgets-message_users"),
-            $("#formfield-form-widgets-message_groups"),
+            $("#formfield-form-widgets-notify_users"),
+            $("#formfield-form-widgets-notify_groups"),
             $("#formfield-form-widgets-additional_users")
         ],
         time: [

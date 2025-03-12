@@ -52,7 +52,7 @@ class EmailNotificationView(BrowserView):
         # To do 'check on date = last 24 hours
         # Is it best to loop users or loop notifications?
         for user in  api.user.get_users():
-          brains = self.context.portal_catalog(portal_type=['Notification'], message_assigned = user.id, effective = {'query': [DateTime() - 1], 'range': 'min'}  # Last 24 hours
+          brains = self.context.portal_catalog(portal_type=['Notification'], notification_assigned = user.id, effective = {'query': [DateTime() - 1], 'range': 'min'}  # Last 24 hours
 )
           
           messages = ''

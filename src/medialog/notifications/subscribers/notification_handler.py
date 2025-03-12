@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 from zope.lifecycleevent import ObjectAddedEvent
 
 
-def get_groups(message_groups):
+def get_groups(notify_groups):
     users = []
-    for entry in message_groups:
+    for entry in notify_groups:
         groupmembers = api.user.get_users(groupname=entry)
         for groupmember in groupmembers:
             users.append(groupmember.getId())
@@ -15,9 +15,9 @@ def get_groups(message_groups):
     return set(users)
                 
 
-def get_users(message_users):
+def get_users(notify_users):
     users = []
-    for entry in message_users:
+    for entry in notify_users:
         users.append(entry)
           
     return set(users)
@@ -27,7 +27,7 @@ def handler(obj, event):
     """ Event handler
     """
     # NOTE: if you modify the Notificaion, users who have read the Noteification are re-added
-    message_users =  obj.message_users or set()
+    notify_users =  obj.notify_users or set()
     
     
     # add users from 'variable field'
@@ -40,17 +40,17 @@ def handler(obj, event):
             for user in userlist:
                 # Check if user exist
                 if api.user.get(username=user):
-                    message_users.add(user)
+                    notify_users.add(user)
     
     if obj.user_filter:
         #Add all users
         userlist = api.user.get_users()
         for user in userlist:
-            message_users.add(user.id)  
+            notify_users.add(user.id)  
             
-    message_assigned =  get_users(message_users).union(get_groups(obj.message_groups or set()))
+    notification_assigned =  get_users(notify_users).union(get_groups(obj.notify_groups or set()))
     
-    for user_id in message_assigned:
+    for user_id in notification_assigned:
         api.user.grant_roles(
             username=user_id,
             obj=obj,
@@ -73,7 +73,7 @@ def handler(obj, event):
                 effective_date = effective_date + timedelta(days=1)
         
 
-    obj.message_assigned = list(message_assigned)
+    obj.notification_assigned = list(notification_assigned)
     obj.effective_date= effective_date
     obj.reindexObject()
     #Maybe reindex just the fields? # return True

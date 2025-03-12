@@ -13,6 +13,6 @@ def dummy(obj):
 
 
 @indexer(INotification)  # ADJUST THIS!
-def message_assigned_indekser(obj):
+def notification_assigned_indekser(obj):
     """Calculate and return the value for the indexer"""
-    return obj.message_assigned
+    return obj.notification_assigned

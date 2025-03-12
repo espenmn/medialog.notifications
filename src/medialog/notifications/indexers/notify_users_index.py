@@ -16,9 +16,9 @@ def dummy(obj):
 
 
 
-def get_groups(message_groups):
+def get_groups(notify_groups):
     users = []
-    for entry in message_groups:
+    for entry in notify_groups:
         groupmembers = api.user.get_users(groupname=entry)
         for groupmember in groupmembers:
             users.append(groupmember.getId())
@@ -26,27 +26,27 @@ def get_groups(message_groups):
     return set(users)
                 
 
-def get_users(message_users):
+def get_users(notify_users):
     users = []
-    for entry in message_users:
+    for entry in notify_users:
         users.append(entry)
           
     return set(users)
     
 
 @indexer(INotification)  # ADJUST THIS!
-def message_usersIndexer(obj):
+def notify_usersIndexer(obj):
     """Calculate and return the value for the indexer"""
     # get all users of all groups
     # return all users
     users = []
     
-    if obj.message_users:
-        for entry in obj.message_users:
+    if obj.notify_users:
+        for entry in obj.notify_users:
             users.append(entry)
     
-    if obj.message_groups:
-        for entry in obj.message_groups:
+    if obj.notify_groups:
+        for entry in obj.notify_groups:
             groupmembers = api.user.get_users(groupname=entry)
             for groupmember in groupmembers:
                 users.append(groupmember.getId())

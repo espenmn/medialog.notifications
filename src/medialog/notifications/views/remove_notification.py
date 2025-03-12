@@ -22,14 +22,14 @@ class RemoveNotification(BrowserView):
         user = api.user.get_current()
         item = self.request.get('item')
         obj  = api.content.get(UID=item) 
-        if obj.message_assigned != None and user.id in obj.message_assigned:
+        if obj.notification_assigned != None and user.id in obj.notification_assigned:
             safeWrite(obj, self.request)
-            readerlist = obj.message_assigned
+            readerlist = obj.notification_assigned
             readerlist.remove(user.id)
-            obj.message_assigned = readerlist or []
+            obj.notification_assigned = readerlist or []
             # if [] the notefication content is kept
             # maybe it should be hidden instead ?
-            obj.reindexObject('message_assigned')
+            obj.reindexObject('notification_assigned')
             
         self.request.response.redirect(self.request.get_header("referer"))
         # return True

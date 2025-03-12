@@ -1,0 +1,9 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <adapter factory=".notify_users_index.dummy"
+    name="notify_users" />
+
+  <adapter factory=".notify_users_index.notify_usersIndexer"
+    name="notify_users" />
+
+</configure>

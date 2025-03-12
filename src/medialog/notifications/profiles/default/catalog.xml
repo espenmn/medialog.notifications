@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
 <object name="portal_catalog">
-  <index name="message_users" meta_type="KeywordIndex">
-    <indexed_attr value="message_users"/>
+  <index name="notify_users" meta_type="KeywordIndex">
+    <indexed_attr value="notify_users"/>
   </index>
-  <index name="message_assigned" meta_type="KeywordIndex">
-    <indexed_attr value="message_assigned"/>
+  <index name="notification_assigned" meta_type="KeywordIndex">
+    <indexed_attr value="notification_assigned"/>
   </index>
   <index name="notification_type" meta_type="FieldIndex">
-    <indexed_attr value="message_type"/>
+    <indexed_attr value="notification_type"/>
   </index>
-  <column value="message_users"/>
-  <column value="message_not_cleared"/>
+
+  <column value="notify_users"/>
   <column value="notification_type"/>
+  <column value="notification_assigned"/>
+
 </object>

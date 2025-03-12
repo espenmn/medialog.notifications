@@ -4,9 +4,9 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
-  <!-- <include file="message_assigned_indekser.zcml" /> -->
+  <!-- <include file="notification_assigned_indekser.zcml" /> -->
 
-  <include file="message_users_index.zcml" />
+  <include file="notify_users_index.zcml" />
 
 
 </configure>

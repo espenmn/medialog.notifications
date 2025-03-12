@@ -1,9 +1,0 @@
-<configure xmlns="http://namespaces.zope.org/zope">
-
-  <adapter factory=".message_assigned_indekser.dummy"
-    name="message_assigned_indekser" />
-
-  <adapter factory=".message_assigned_indekser.message_assigned_indekser"
-    name="message_assigned_indekser" />
-
-</configure>

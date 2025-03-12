@@ -12,8 +12,8 @@ class NotificationTo(BaseSubstitution):
     description = "Notification To"
 
     def safe_call(self):
-        if hasattr(self.context, 'message_assigned'):
-            return ", ".join(self.context.message_assigned)
+        if hasattr(self.context, 'notification_assigned'):
+            return ", ".join(self.context.notification_assigned)
         return ''
 
 

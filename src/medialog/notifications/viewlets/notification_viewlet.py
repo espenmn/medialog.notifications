@@ -29,7 +29,7 @@ class NotificationViewlet(ViewletBase):
         
         user = api.user.get_current()
         user_id = user.getId()
-        items =  self.context.portal_catalog(portal_type=['Notification'], message_assigned=user_id, effective={"query": today, "range": "max"})
+        items =  self.context.portal_catalog(portal_type=['Notification'], notification_assigned=user_id, effective={"query": today, "range": "max"})
                 
         if items:
             return len(items)

@@ -40,8 +40,8 @@ class NotificationsView(BrowserView):
         today = DateTime()
         
         if not show_all:
-            return self.context.portal_catalog(portal_type=['Notification'], message_assigned=user, effective={"query": today, "range": "max"}, sort_on="created", sort_order="reverse")
+            return self.context.portal_catalog(portal_type=['Notification'], notification_assigned=user, effective={"query": today, "range": "max"}, sort_on="created", sort_order="reverse")
         else:
-            return self.context.portal_catalog(portal_type=['Notification'], message_users=user, effective={"query": today, "range": "max"}, sort_on="created", sort_order="reverse")
+            return self.context.portal_catalog(portal_type=['Notification'], notify_users=user, effective={"query": today, "range": "max"}, sort_on="created", sort_order="reverse")
         
         

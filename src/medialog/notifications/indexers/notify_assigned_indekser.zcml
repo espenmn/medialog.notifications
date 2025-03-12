@@ -1,0 +1,9 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <adapter factory=".notification_assigned_indekser.dummy"
+    name="notification_assigned_indekser" />
+
+  <adapter factory=".notification_assigned_indekser.notification_assigned_indekser"
+    name="notification_assigned_indekser" />
+
+</configure>

@@ -33,7 +33,7 @@ class RemoveNotification(object):
         # TO DO: Not sure why / if we should use try
         try:
             user = api.user.get_current()
-            self.context.message_users = self.context.message_users.remove(user)
+            self.context.notify_users = self.context.notify_users.remove(user)
             # TO DO: How can we refresh page
             return True
         except Exception as e:

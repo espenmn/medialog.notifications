@@ -15,10 +15,10 @@
           <div tal:repeat="item python:view.get_items()">
 
             <div tal:define="obj python:item.getObject(); 
-                          message_type obj/message_type|None;
-                          read python: user['id'] not in obj.message_assigned;
-                          mes_type python: 'danger' if message_type == 'error' else message_type" class="flex flex-wrap read-${read}">
-              <div class="flex-grow-1 portalMessage statusmessage statusmessage-${message_type} alert alert-${mes_type}" role="alert">
+                          notification_type obj/notification_type|None;
+                          read python: user['id'] not in obj.notification_assigned;
+                          mes_type python: 'danger' if notification_type == 'error' else notification_type" class="flex flex-wrap read-${read}">
+              <div class="flex-grow-1 portalMessage statusmessage statusmessage-${notification_type} alert alert-${mes_type}" role="alert">
 
                 <table width="100%">
                   <tr width="100%">
@@ -54,7 +54,7 @@
                   <a tal:condition="not:read" href="${item/getURL}/remove-notification?item=${item/UID}">✔ Got it!</a>
                 </p>
               </div>
-              <!-- ${obj/message_users} -->
+              <!-- ${obj/notify_users} -->
 
             </div>
           </div>

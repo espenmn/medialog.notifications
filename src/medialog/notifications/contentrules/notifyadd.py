@@ -43,7 +43,7 @@ class NotifyAddAction(SimpleItem):
     """The actual persistent implementation of the notify action element."""
 
     message = ""
-    message_type = ""
+    notification_type = ""
 
     element = "plone.actions.NotifyAdd"
     
@@ -78,15 +78,15 @@ class NotifyAddActionExecutor:
         obj = self.event.object
         interpolator = IStringInterpolator(obj)
         message = interpolator(self.element.message.raw)
-        message_type = self.element.message_type
-        message_users = self.element.message_users
+        notification_type = self.element.notification_type
+        notify_users = self.element.notify_users
         show_title =  self.element.show_title
         time_filter =  self.element.time_filter         
         user_filter = self.element.user_filter 
         additional_users = self.element.additional_users  
         relative_time  = self.element.relative_time  
         effective_date =  self.element.effective_date
-        message_groups = self.element.message_groups
+        notify_groups = self.element.notify_groups
 
 
         # Will will do all the logic in handlers
@@ -94,11 +94,11 @@ class NotifyAddActionExecutor:
             type='Notification',
             title='Notification',
             message  = RichTextValue(message),
-            message_type = message_type,
+            notification_type = notification_type,
             show_title =  show_title,
-            message_users = message_users,
-            message_groups = message_groups,
-            message_assigned = [],
+            notify_users = notify_users,
+            notify_groups = notify_groups,
+            notification_assigned = [],
             time_filter = time_filter,
             user_filter = user_filter ,
             effective_date = effective_date,

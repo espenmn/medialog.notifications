@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# from plone.app.textfield import RichText
 # from plone.namedfile import field as namedfile
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
+from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from plone import api
 from plone.api.portal import getRequest
 from medialog.notifications import _
@@ -16,6 +16,8 @@ from plone.app.z3cform.widget import RichTextFieldWidget
 from plone.autoform.directives import read_permission, write_permission
 from zope.schema.interfaces import IContextAwareDefaultFactory
 from zope.interface import provider
+
+notify_values = ("info", "warning", "error", )
 
 PATTERN_OPTIONS = {
     "tiny": {
@@ -144,18 +146,18 @@ PATTERN_OPTIONS = {
 } 
 
 @provider(IContextAwareDefaultFactory)
-def message_to(context=None):
+def notify_to(context=None):
     """Default factory for the to field."""
     request = getRequest()
-    message_to = request.get('message_to', None)  # Get 'date' parameter from request
-    if message_to and message_to != 'admin' and api.user.get(userid=message_to):
+    notify_to = request.get('notify_to', None)  # Get 'date' parameter from request
+    if notify_to and notify_to != 'admin' and api.user.get(userid=notify_to):
         # To do: DO we need to find/check user?
         # return as set?
-        return {message_to}
+        return {notify_to}
     return None  # Fallback i
 
 def filter_factory(context=None):
-    if message_to():
+    if notify_to():
         return False
     return True
 
@@ -168,12 +170,12 @@ class INotification(model.Schema):
     # model.load('notification.xml')
 
     # directives.write_permission(message='cmf.ManagePortal')
-    read_permission(message_type='cmf.ModifyPortalContent')
-    write_permission(message_type='cmf.ModifyPortalContent')
-    message_type = schema.Choice(
+    read_permission(notification_type='cmf.ModifyPortalContent')
+    write_permission(notification_type='cmf.ModifyPortalContent')
+    notification_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),
-        values=("info", "warning", "error", "basic"),
+        values=notify_values,
         required=True,
         default="info",
     )
@@ -202,19 +204,19 @@ class INotification(model.Schema):
         required=False,
     )
     
-    read_permission( message_users='cmf.ModifyPortalContent')
-    write_permission( message_users='cmf.ModifyPortalContent')
-    message_users = schema.Set(
+    read_permission( notify_users='cmf.ModifyPortalContent')
+    write_permission( notify_users='cmf.ModifyPortalContent')
+    notify_users = schema.Set(
         title=_("label_notify_users", default="Notify Users"),
         description=_("label_notify_users_desc", default="Notify Specific Members"),
         required=False,
         value_type=schema.Choice(vocabulary="plone.app.vocabularies.Users"),
-        defaultFactory=message_to
+        defaultFactory=notify_to
     )
     
-    read_permission(message_groups='cmf.ModifyPortalContent')
-    write_permission(message_groups='cmf.ModifyPortalContent')
-    message_groups = schema.Set(
+    read_permission(notify_groups='cmf.ModifyPortalContent')
+    write_permission(notify_groups='cmf.ModifyPortalContent')
+    notify_groups = schema.Set(
         title=_("label_notify_groups", default="Notify Groups"),
         description=_("label_notify_groups_desc", default="Notify Specific Groups"),
         required=False,
@@ -266,8 +268,8 @@ class INotification(model.Schema):
     
     #Maybe a condition would be better ??
     #If so, it is possible to see who has not seen the Notification
-    directives.mode(message_assigned='hidden')
-    message_assigned = schema.List(
+    directives.mode(notification_assigned='hidden')
+    notification_assigned = schema.List(
         title=_("Assigned to (who should see this)"),
         required=False,
         value_type=schema.TextLine(),
@@ -275,10 +277,11 @@ class INotification(model.Schema):
         missing_value=[]
     )
     
+    directives.widget(show_title=CheckBoxFieldWidget)    
     directives.mode(show_title='hidden')
     show_title = schema.Bool(
-        title=_("Show message type (Title)"),
-        required=False,
+            title=_("Show message type (Title)"),
+            required=False,
     )
     
     

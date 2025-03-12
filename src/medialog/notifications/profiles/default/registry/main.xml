@@ -28,87 +28,65 @@
 
 
   <!-- -*- Querystring -*- -->
- 
-  <record name="plone.app.querystring.field.notification_type.description" interface="plone.app.querystring.interfaces.IQueryField" field="description">
-    <field type="plone.registry.field.Text">
-      <title>Assigned Description</title>
-    </field>
-    <value xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="plone" ns0:translate="">The person that was assigned an item</value>
-  </record>
-  <record name="plone.app.querystring.field.notification_type.enabled" interface="plone.app.querystring.interfaces.IQueryField" field="enabled">
-    <field type="plone.registry.field.Bool">
-      <title>Enabled</title>
-    </field>
-    <value>True</value>
-  </record>
-  <record name="plone.app.querystring.field.notification_type.fetch_vocabulary" interface="plone.app.querystring.interfaces.IQueryField" field="fetch_vocabulary">
-    <field type="plone.registry.field.Bool">
-      <default>True</default>
-      <title>Fetch vocabulary</title>
-    </field>
-    <value>True</value>
-  </record>
-  <record name="plone.app.querystring.field.notification_type.group" interface="plone.app.querystring.interfaces.IQueryField" field="group">
-    <field type="plone.registry.field.TextLine">
-      <title>Group</title>
-    </field>
-    <value xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="plone" ns0:translate="">Metadata</value>
-  </record>
-  <record name="plone.app.querystring.field.notification_type.operations" interface="plone.app.querystring.interfaces.IQueryField" field="operations">
-    <field type="plone.registry.field.List">
-      <title>Operations</title>
-      <value_type type="plone.registry.field.DottedName">
-        <title>Operation ID</title>
-      </value_type>
-    </field>
-    <value> 
+
+
+  <!-- <records interface="plone.app.querystring.interfaces.IQueryField" prefix="plone.app.querystring.field.notification_type">
+    <value key="title">Notification type</value>
+    <value key="description">Notification type</value>
+    <value key="enabled">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.string.is</element>
       <element>plone.app.querystring.operation.selection.any</element>
       <element>plone.app.querystring.operation.selection.none</element>
     </value>
-  </record>
-  <record name="plone.app.querystring.field.notification_type.sortable" interface="plone.app.querystring.interfaces.IQueryField" field="sortable">
-    <field type="plone.registry.field.Bool">
-      <title>Sortable</title>
-    </field>
-    <value>True</value>
-  </record>
-  <record name="plone.app.querystring.field.notification_type.title" interface="plone.app.querystring.interfaces.IQueryField" field="title">
-    <field type="plone.registry.field.TextLine">
-      <title>Notification Type</title>
-    </field>
-    <value xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="plone" ns0:translate="">Notification To</value>
-  </record>
- 
+    <value key="group">Metadata</value> 
+
+  </records> -->
+
+  <records interface="plone.app.querystring.interfaces.IQueryField" prefix="plone.app.querystring.field.notification_type">
+    <value key="title">Notification Message type</value>
+    <value key="description">Notification Message type</value>
+    <value key="enabled">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.string.is</element>
+      <element>plone.app.querystring.operation.selection.any</element>
+      <element>plone.app.querystring.operation.selection.none</element>
+    </value>
+    <value key="group">Metadata</value>
+    <!-- <value key="vocabulary">plone.app.vocabularies.Users</value> -->
+
+  </records>
+
 
   <!-- -*- Querystring -*- -->
 
 
-  <record name="plone.app.querystring.field.message_assigned.description" interface="plone.app.querystring.interfaces.IQueryField" field="description">
+  <record name="plone.app.querystring.field.notification_assigned.description" interface="plone.app.querystring.interfaces.IQueryField" field="description">
     <field type="plone.registry.field.Text">
       <title>Assigned Description</title>
     </field>
     <value xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="plone" ns0:translate="">The person that was assigned an item</value>
   </record>
-  <record name="plone.app.querystring.field.message_assigned.enabled" interface="plone.app.querystring.interfaces.IQueryField" field="enabled">
+  <record name="plone.app.querystring.field.notification_assigned.enabled" interface="plone.app.querystring.interfaces.IQueryField" field="enabled">
     <field type="plone.registry.field.Bool">
       <title>Enabled</title>
     </field>
     <value>True</value>
   </record>
-  <record name="plone.app.querystring.field.message_assigned.fetch_vocabulary" interface="plone.app.querystring.interfaces.IQueryField" field="fetch_vocabulary">
+  <record name="plone.app.querystring.field.notification_assigned.fetch_vocabulary" interface="plone.app.querystring.interfaces.IQueryField" field="fetch_vocabulary">
     <field type="plone.registry.field.Bool">
       <default>True</default>
       <title>Fetch vocabulary</title>
     </field>
     <value>True</value>
   </record>
-  <record name="plone.app.querystring.field.message_assigned.group" interface="plone.app.querystring.interfaces.IQueryField" field="group">
+  <record name="plone.app.querystring.field.notification_assigned.group" interface="plone.app.querystring.interfaces.IQueryField" field="group">
     <field type="plone.registry.field.TextLine">
       <title>Group</title>
     </field>
     <value xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="plone" ns0:translate="">Metadata</value>
   </record>
-  <record name="plone.app.querystring.field.message_assigned.operations" interface="plone.app.querystring.interfaces.IQueryField" field="operations">
+  <record name="plone.app.querystring.field.notification_assigned.operations" interface="plone.app.querystring.interfaces.IQueryField" field="operations">
     <field type="plone.registry.field.List">
       <title>Operations</title>
       <value_type type="plone.registry.field.DottedName">
@@ -121,19 +99,19 @@
       <element>plone.app.querystring.operation.selection.none</element>
     </value>
   </record>
-  <record name="plone.app.querystring.field.message_assigned.sortable" interface="plone.app.querystring.interfaces.IQueryField" field="sortable">
+  <record name="plone.app.querystring.field.notification_assigned.sortable" interface="plone.app.querystring.interfaces.IQueryField" field="sortable">
     <field type="plone.registry.field.Bool">
       <title>Sortable</title>
     </field>
     <value>True</value>
   </record>
-  <record name="plone.app.querystring.field.message_assigned.title" interface="plone.app.querystring.interfaces.IQueryField" field="title">
+  <record name="plone.app.querystring.field.notification_assigned.title" interface="plone.app.querystring.interfaces.IQueryField" field="title">
     <field type="plone.registry.field.TextLine">
       <title>Notification Assigned</title>
     </field>
     <value xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="plone" ns0:translate="">Notification To</value>
   </record>
-  <record name="plone.app.querystring.field.message_assigned.vocabulary" interface="plone.app.querystring.interfaces.IQueryField" field="vocabulary">
+  <record name="plone.app.querystring.field.notification_assigned.vocabulary" interface="plone.app.querystring.interfaces.IQueryField" field="vocabulary">
     <field type="plone.registry.field.TextLine">
       <title>Vocabulary</title>
     </field>
