@@ -2,6 +2,6 @@
     tal:condition="view/items" 
     class="notification-viewlet portalMessage statusmessage statusmessage-info alert alert-info">
     <a title="see noticitions" 
-        href="${portal_state/portal_url}/notifications-view">${view/user} has <b>${view/items}</b> new notification(s). <b>Click here to see</b></a>
+        href="${portal_state/portal_url}/notifications">${view/user} has <b>${view/items}</b> new notification(s). <b>Click here to see</b></a>
 </div>
  

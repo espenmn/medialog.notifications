@@ -23,7 +23,7 @@
     />
 
   <browser:page
-    name="notifications-view"
+    name="notifications"
     for="plone.base.interfaces.IPloneSiteRoot"
     class=".notifications_view.NotificationsView"
     template="notifications_view.pt"
@@ -32,7 +32,7 @@
     />
 
   <browser:page
-    name="notification-view"
+    name="notification"
     for="medialog.notifications.content.notification.Notification"
     class=".notification_view.NotificationView"
     template="notification_view.pt"
