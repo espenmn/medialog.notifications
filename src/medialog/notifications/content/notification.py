@@ -191,7 +191,7 @@ class INotification(model.Schema):
     read_permission(message='cmf.ModifyPortalContent')
     write_permission(message='cmf.ModifyPortalContent')
     message = RichText(
-        title=_("Message"),
+        title=_("Message Text"),
         description=_("The message shown to the user. NOTE: You can use  '${}' variables (see below))"),
         required=True,
     )
