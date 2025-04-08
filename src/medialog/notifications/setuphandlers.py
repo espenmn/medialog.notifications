@@ -56,8 +56,24 @@ def _create_content(portal):
             id='notifications',
             title='Notifications',
             exclude_from_nav=True,
-            layout='full_view',
+            default_page='notifications-collection',
         )
+        
+        if not note_folder.get('notifications-collection', False):
+            notification_collection = plone.api.content.create(
+                type='Collection',
+                container=note_folder,
+                id='notifications-collection',
+                title='Notifications',
+                layout='notifications-collection-view',
+                query = [{'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.any', 'v': ['Notification']},
+                         {'i': 'notification_assigned', 'o': 'plone.app.querystring.operation.string.currentUser', 'v': ''}, 
+                         ],
+                limit=2000,
+                item_count=500,
+            )
+        
+        
         
         # Dont publish folder, it should not be possible to show other peoples notes
         # plone.api.content.transition(obj=portal['notifications'], transition='publish')

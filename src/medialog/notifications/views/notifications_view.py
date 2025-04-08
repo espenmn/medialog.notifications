@@ -30,10 +30,12 @@ class NotificationsCollectionView(CollectionView):
         #TO DO: What do we do for 'anon'?
         return {'fullname': 'anon', 'id': None}
     
-    @property
+    # @property
     def show_all(self):
         showall = self.request.get('show_all', 0)
         return showall
+    
+ 
 
     #TO DO: Filter batch on  'read' / 'unread'         
     # def get_items(self):
