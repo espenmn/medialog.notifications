@@ -33,10 +33,10 @@
 
   <!-- duplicate view for collections -->
   <browser:page
-    name="notifications"
+    name="notifications-collection-view"
     for="plone.app.contenttypes.content.Collection"
-    class=".notifications_view.NotificationsView"
-    template="notifications_view.pt"
+    class=".notifications_view.NotificationsCollectionView"
+    template="notifications_collection_view.pt"
     permission="zope2.View"
     layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
     />

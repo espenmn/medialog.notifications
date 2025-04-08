@@ -53,4 +53,3 @@ def notify_usersIndexer(obj):
     if users:
         return set(users)
     
-    

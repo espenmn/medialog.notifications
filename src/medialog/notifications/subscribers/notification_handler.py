@@ -74,6 +74,8 @@ def handler(obj, event):
         
 
     obj.notification_assigned = list(notification_assigned)
+    if isinstance(event, ObjectAddedEvent):
+        obj.notify_users = list(notification_assigned)
     obj.effective_date= effective_date
     obj.reindexObject()
     #Maybe reindex just the fields? # return True

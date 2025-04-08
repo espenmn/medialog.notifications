@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="medialog.notifications" metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:content-core fill-slot="content-core">
+      <metal:block define-macro="content-core">
+        <tal:define tal:define="user view/get_user|None">
+
+          <!-- <p>TO DO, show only 'assigned to me'</p> -->
+          <!-- <p>TO DO: Should only be possible to delete if it is 'only for me'</p> -->
+
+
+          <div tal:repeat="item python:view.results()">
+
+          <tal:condition tal:define="showall view/show_all|None" tal:condition="python: showall or item.notification_assigned==user">
+
+            <div tal:define="obj python:item.getObject(); 
+                          notification_type obj/notification_type|None;
+                          mes_type python: 'danger' if notification_type == 'error' else notification_type" class="flex flex-wrap">
+              <div class="flex-grow-1 portalMessage statusmessage statusmessage-${notification_type} alert alert-${mes_type}" role="alert">
+
+                <table width="100%">
+                  <tr width="100%">
+                    <td width="50%" class="text-right" tal:define="effective obj/effective; created obj/created">
+                    <span tal:condition="python: effective > created">Shown: <b>${python: effective.strftime('%m/%d/%Y %I:%M %p')}</b></span>
+                    <span tal:condition="python: effective <= created">Created: <b>${python: created.strftime('%m/%d/%Y %I:%M %p')}</b></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>From: <span tal:define="creator context/Creator;
+               mtool context/@@plone_tools/membership;
+               author python:mtool.getMemberInfo(creator)" tal:content="python:author and author['fullname'] or creator">Author name</span>
+
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <hr/>
+                    </td>
+                  </tr>
+
+                  <tr >
+                    <td colspan="2">
+                      <div tal:replace="structure obj/message/output|None" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="padding-10">
+                <p>
+                  <a href="${item/getURL}/remove-notification?item=${item/UID}">✔ Got it!</a>
+                </p>
+              </div>
+              <!-- ${obj/notify_users} -->
+
+            </div>
+            </tal:condition> 
+          </div>
+          <style>
+                          .flex {display: flex}
+                          .flex-wrap {flex-wrap: wrap}
+                          .flex .padding-10 {flex-grow: 0}
+                          .flex-grow-1 {flex-grow: 1}
+                          .padding-10 {padding-left: 10px;}
+                          p.padmar-0 {padding: 0; margin:0 }
+                          .read-True .portalMessage {
+                            opacity: 0.7; animation-fill-mode: none; animation-delay: 0s!important; animation: 1.5s none;}
+                          .notification-viewlet {display: none}
+                          .alert- {background: whitesmoke}
+                          .alert a {text-decoration: none !important}
+                          .text-right {text-align: right;}
+          </style>
+
+
+
+          <tal:condition tal:condition="not: view/show_all">
+            <a class="show-all-btn" href="${portal_url}/notifications-view?show_all=1" class="button btn standalone primary" id="show-all-btn">Show All (already read, too)</a>
+          </tal:condition>
+          <tal:condition tal:condition="view/show_all">
+            <a class="show-all-btn" href="${portal_url}/notifications-view?show_all=0" class="button btn standalone  secondary" id="show-all-btn">Show Only Unread</a>
+          </tal:condition>
+
+
+        </tal:define>
+      </metal:block>
+    </metal:content-core>
+  </body>
+</html>
