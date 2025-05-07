@@ -4,7 +4,7 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
-  <include file="notification_type.zcml" />
+  <!-- <include file="notification_type.zcml" /> -->
 
   <!-- <include file="notification_assigned_indekser.zcml" /> -->
 

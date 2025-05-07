@@ -14,4 +14,5 @@ def dummy(obj):
 @indexer(IDocument)  # ADJUST THIS!
 def notification_type(obj):
     """Calculate and return the value for the indexer"""
+    import pdb; pdb.set_trace()
     return obj.notification_type

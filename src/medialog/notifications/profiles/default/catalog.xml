@@ -6,7 +6,7 @@
   <index name="notification_assigned" meta_type="KeywordIndex">
     <indexed_attr value="notification_assigned"/>
   </index>
-  <index name="notification_type" meta_type="KeywordIndex">
+  <index name="notification_type" meta_type="FieldIndex">
     <indexed_attr value="notification_type"/>
   </index>
 
