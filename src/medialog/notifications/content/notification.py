@@ -171,8 +171,8 @@ class INotification(model.Schema):
     # model.load('notification.xml')
 
     # directives.write_permission(message='cmf.ManagePortal')
-    read_permission(notification_type='cmf.ModifyPortalContent')
-    write_permission(notification_type='cmf.ModifyPortalContent')
+    # read_permission(notification_type='cmf.ModifyPortalContent')
+    # write_permission(notification_type='cmf.ModifyPortalContent')
     notification_type = schema.Choice(
         title=_("Message type"),
         description=_("Select the type of message to display."),

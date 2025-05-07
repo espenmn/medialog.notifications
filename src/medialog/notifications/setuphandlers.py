@@ -67,13 +67,13 @@ def _create_content(portal):
                 title='Notifications',
                 layout='notifications-collection-view',
                 query = [{'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.any', 'v': ['Notification']},
-                         {'i': 'notification_assigned', 'o': 'plone.app.querystring.operation.string.currentUser', 'v': ''}, 
+                         {'i': 'notify_users', 'o': 'plone.app.querystring.operation.string.currentUser', 'v': ''}, 
                          ],
                 limit=2000,
                 item_count=500,
             )
         
-        
+        #notify_users
         
         # Dont publish folder, it should not be possible to show other peoples notes
         # plone.api.content.transition(obj=portal['notifications'], transition='publish')

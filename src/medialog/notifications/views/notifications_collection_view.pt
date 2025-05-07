@@ -28,18 +28,14 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>From: <span tal:define="creator context/Creator;
+                    <td>From: <b tal:define="creator context/Creator;
                mtool context/@@plone_tools/membership;
-               author python:mtool.getMemberInfo(creator)" tal:content="python:author and author['fullname'] or creator">Author name</span>
+               author python:mtool.getMemberInfo(creator)" tal:content="python:author and author['fullname'] or creator">Author name</b>
 
                     </td>
 
                   </tr>
-                  <tr>
-                    <td colspan="2">
-                      <hr/>
-                    </td>
-                  </tr>
+                  
 
                   <tr >
                     <td colspan="2">
@@ -60,6 +56,7 @@
           </div>
           <style>
                           .flex {display: flex}
+                          tr { background: none !important; border: 0 none !important}
                           .flex-wrap {flex-wrap: wrap}
                           .flex .padding-10 {flex-grow: 0}
                           .flex-grow-1 {flex-grow: 1}
@@ -75,12 +72,12 @@
 
 
 
-          <tal:condition tal:condition="not: view/show_all">
+          <!-- <tal:condition tal:condition="not: view/show_all">
             <a class="show-all-btn" href="${portal_url}/notifications/notifications-collection/?show_all=1" class="button btn standalone primary" id="show-all-btn">Show All (already read, too)</a>
           </tal:condition>
           <tal:condition tal:condition="view/show_all">
             <a class="show-all-btn" href="${portal_url}/notifications/notifications-collection/?nothing" class="button btn standalone  secondary" id="show-all-btn">Show Only Unread</a>
-          </tal:condition>
+          </tal:condition> -->
         </tal:define>
       </metal:block>
     </metal:content-core>

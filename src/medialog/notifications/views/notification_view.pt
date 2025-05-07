@@ -15,9 +15,9 @@
             </tal:with-fullname>
 
 
-            <p>Message from: <span tal:define="creator context/Creator;
+            <p>Message from: <b tal:define="creator context/Creator;
                mtool context/@@plone_tools/membership;
-               author python:mtool.getMemberInfo(creator)" tal:content="python:author and author['fullname'] or creator">Author name</span>
+               author python:mtool.getMemberInfo(creator)" tal:content="python:author and author['fullname'] or creator">Author name</b>
             </p>
 
 

@@ -1,0 +1,9 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <adapter factory=".notification_type.dummy"
+    name="notification_type" />
+
+  <adapter factory=".notification_type.notification_type"
+    name="notification_type" />
+
+</configure>
