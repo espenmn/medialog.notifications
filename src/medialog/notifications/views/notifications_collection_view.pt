@@ -12,8 +12,8 @@
  
           <div tal:repeat="item python:view.results()">
 
-          <tal:condition tal:define="show_all view/show_all|None" tal:condition="python:  show_all or (user['id'] in item.notification_assigned)">
-          
+          <tal:condition tal:define="show_all view/show_all|None" 
+              tal:condition="python:  show_all or (user['id'] in item.notification_assigned)">          
 
             <div tal:define="obj python:item.getObject(); 
                           notification_type obj/notification_type|None;
