@@ -6,6 +6,7 @@
     <metal:content-core fill-slot="content-core">
       <metal:block define-macro="content-core">
         <tal:define tal:define="user view/get_user|None">
+        
 
           <!-- <p>TO DO, show only 'assigned to me'</p> -->
           <!-- <p>TO DO: Should only be possible to delete if it is 'only for me'</p> -->
@@ -44,7 +45,8 @@
                   </tr>
                 </table>
               </div>
-              <div class="padding-10">
+              
+              <div class="padding-10" tal:condition="item/notification_assigned">
                 <p tal:condition="python: user['id'] in item.notification_assigned">
                   <a href="${item/getURL}/remove-notification?item=${item/UID}">✔ Got it!</a>
                 </p>
