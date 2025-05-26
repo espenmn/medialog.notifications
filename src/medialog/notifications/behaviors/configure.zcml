@@ -1,0 +1,22 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="plone">
+
+    <include package="plone.behavior" file="meta.zcml"/>
+
+    <!-- -*- extra stuff goes here -*- -->
+
+    <plone:behavior
+        name="medialog.notifications.mentioning_behavior"
+        title="MentioningBehavior"
+        description="Will notify user if username is mentioned in (body) text"
+        provides=".mentioning_behavior.IMentioningBehavior"
+        factory=".mentioning_behavior.MentioningBehavior"
+        marker=".mentioning_behavior.IMentioningBehaviorMarker"
+        />
+
+
+</configure>

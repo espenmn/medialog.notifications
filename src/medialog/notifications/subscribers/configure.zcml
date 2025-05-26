@@ -4,7 +4,7 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
-  <subscriber for="plone.dexterity.interfaces.IDexterityContent
+  <subscriber for="plone.app.contenttypes.content.Document
                    zope.lifecycleevent.interfaces.IObjectModifiedEvent"
               handler=".mention_user_from_text.handler"
               />
