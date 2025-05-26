@@ -5,6 +5,7 @@
     i18n_domain="medialog.notifications">
 
   <!-- -*- extra stuff goes here -*- -->
+<include package=".mentions_view" />
 <include package=".remove_notification" />
 
 
