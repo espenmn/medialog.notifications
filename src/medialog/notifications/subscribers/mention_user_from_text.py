@@ -6,6 +6,7 @@ from zope.lifecycleevent import ObjectAddedEvent
 from plone.dexterity.interfaces import IDexterityContent
 from plone.app.textfield import RichTextValue
 
+
 import re
 
 MENTION_RE = re.compile(r'@([\w\-]+)')

@@ -9,14 +9,12 @@
 
     <!-- -*- extra stuff goes here -*- -->
 
-    <plone:behavior
-        name="medialog.notifications.mentioning_behavior"
-        title="MentioningBehavior"
-        description="Will notify user if username is mentioned in (body) text"
-        provides=".mentioning_behavior.IMentioningBehavior"
-        factory=".mentioning_behavior.MentioningBehavior"
-        marker=".mentioning_behavior.IMentioningBehaviorMarker"
-        />
-
+  <plone:behavior
+      name="medialog.notifications.mentioning_behavior"
+      title="MentioningBehavior"
+      description="Notify user when @username is mentioned"
+      provides=".mentioning_behavior.IMentioningBehavior"
+  />
 
 </configure>
+
