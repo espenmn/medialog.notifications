@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from plone import api
 from plone.restapi.interfaces import IExpandableElement
-from plone.restapi.services import Service
+from zope.interface import implementer
 from zope.component import adapter
 from zope.interface import Interface
-from zope.interface import implementer
-
+from Products.CMFPlone.utils import safe_unicode
+from plone.restapi.services import Service
+from plone import api
 
 @implementer(IExpandableElement)
 @adapter(Interface, Interface)
@@ -16,46 +16,31 @@ class MentionsView(object):
         self.request = request
 
     def __call__(self, expand=False):
-        result = {
-            'mentions_view': {
-                '@id': '{}/@mentions_view'.format(
-                    self.context.absolute_url(),
-                ),
-            },
-        }
         if not expand:
-            return result
+            return {
+                'mentions_view': {
+                    '@id': f"{self.context.absolute_url()}/@mentions_view"
+                }
+            }
 
-        # === Your custom code comes here ===
+        users = api.user.get_users()
+        return [
+            {
+                "key": safe_unicode(user.getProperty('fullname') or user.getUserName()),
+                "value": user.getUserName()
+            }
+            for user in users
+        ]
 
-        # Example:
-        try:
-            subjects = self.context.Subject()
-        except Exception as e:
-            print(e)
-            subjects = []
-        query = {}
-        query['portal_type'] = "Document"
-        query['Subject'] = {
-            'query': subjects,
-            'operator': 'or',
-        }
-        brains = api.content.find(**query)
-        items = []
-        for brain in brains:
-            # obj = brain.getObject()
-            # parent = obj.aq_inner.aq_parent
-            items.append({
-                'title': brain.Title,
-                'description': brain.Description,
-                '@id': brain.getURL(),
-            })
-        result['mentions_view']['items'] = items
-        return result
 
 
 class MentionsViewGet(Service):
 
+    # def reply(self):
+    #     service_factory = MentionsView(self.context, self.request)
+    #     return service_factory(expand=True)['mentions_view']
+    
     def reply(self):
         service_factory = MentionsView(self.context, self.request)
-        return service_factory(expand=True)['mentions_view']
+        return service_factory(expand=True)  # ✅ already a list, no ['mentions_view']
+

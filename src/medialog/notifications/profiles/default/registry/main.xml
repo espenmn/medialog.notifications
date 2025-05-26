@@ -17,6 +17,16 @@
 
   <records prefix="plone.bundles/medialognotificatons" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
     <value key="enabled">True</value>
+    <value key="jscompilation">++plone++medialog.notifications/tiny_mce/plugins/index.js</value>
+    <value key="last_compilation">2016-01-01 00:00:00</value>
+    <value key="compile">False</value>
+    <value key="depends">plone</value>
+    <value key="merge_with">logged-in</value> 
+  </records>
+
+
+  <records prefix="plone.bundles/medialognotificatons" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <value key="enabled">True</value>
     <value key="jscompilation">++plone++medialog.notifications/field_toggle.js</value>
     <value key="last_compilation">2016-01-01 00:00:00</value>
     <value key="compile">False</value>
@@ -24,6 +34,7 @@
     <value key="merge_with">logged-in</value>
     <value key="expression">python:'++rule++' in request.URL  or 'edit' in request.URL or '++Notification' in request.URL</value>
   </records>
+
 
   <!-- notification types -->
   <record name="medialog.notifications.notification_types">
