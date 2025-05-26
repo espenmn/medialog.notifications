@@ -4,6 +4,11 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
+  <subscriber for="plone.dexterity.interfaces.IDexterityContent
+                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+              handler=".mention_user_from_text.handler"
+              />
+
   <subscriber for="medialog.notifications.content.notification.INotification
                    zope.lifecycleevent.interfaces.IObjectAddedEvent"
               handler=".notification_handler.handler"
