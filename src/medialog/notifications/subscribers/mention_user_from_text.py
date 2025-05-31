@@ -16,8 +16,6 @@ def handler(obj, event):
     If so, a Notification is added
     """
     
-    import pdb; pdb.set_trace()
- 
     # Maybe find fields from control panel ?
     fields_to_check = ['text', 'description']
     found_usernames = set()
@@ -33,9 +31,8 @@ def handler(obj, event):
         if isinstance(value, str):
             found_usernames.update(MENTION_RE.findall(value))
 
-    # You can either store them in a custom field, annotation, or print them
-    # For demonstration, we'll log them
     if found_usernames:
+        reference_id = "notification-" + getattr(obj, field, 'reference_id')
         for user in found_usernames:
             if api.user.get(username=user):
                 notify_users.add(user)
@@ -44,17 +41,51 @@ def handler(obj, event):
         container =  portal.get('notifications', portal)
 
         # Now, create notification
-        # TO DO, make sure user is not 'mentioned again'
+        # make sure user is not 'mentioned again'
+        # Check if it exist
+        # IF not, add user to notificy users
+        portal = api.portal.get()
+        container = portal.get('notifications', portal)
+
+        #  Use api.content.find to check if item with this ID exists in the container
+        results = api.content.find(id=reference_id, path={'query': '/'.join(container.getPhysicalPath()), 'depth': 1})
+
+        if results:
+            existing_notification = results[0].getObject()
+
+            # Avoid re-notifying existing users
+            existing_notify_users = set(existing_notification.notify_users or [])
+            new_notify_users = notify_users - existing_notify_users
+
+            if new_notify_users:
+                existing_notification.notify_users = list(notify_users),
+                existing_notification.reindexObject()
+        else:
+            # Create new notification
+            obj = api.content.create(
+                type='Notification',
+                title='Mentions',
+                id=reference_id,
+                message=RichTextValue('You have been mentioned'),
+                notification_type='info',
+                notify_users=list(notify_users),
+                notification_assigned=[],
+                container=container,
+            )
         
-        obj = api.content.create(
-            type='Notification',
-            title='Mentions',
-            message  = RichTextValue('You have been mentioned'),
-            notification_type = 'info',
-            notify_users = notify_users,
-            notification_assigned = [],
-            container=container,
-        )
+        
+        #obj = api.content.create(
+        #    type='Notification',
+        #    title='Mentions',
+        #    id=c,
+        #    message  = RichTextValue('You have been mentioned'),
+        #    notification_type = 'info',
+        ##    notify_users = notify_users,
+        #    notification_assigned = [],
+        #    container=container,
+        #)
+        
+        
         
         #Probably need more permissions?
         for user_id in notify_users:
