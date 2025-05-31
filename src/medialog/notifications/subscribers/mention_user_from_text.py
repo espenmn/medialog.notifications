@@ -30,9 +30,13 @@ def handler(obj, event):
 
         if isinstance(value, str):
             found_usernames.update(MENTION_RE.findall(value))
+            
+            
+    import pdb; pdb.set_trace()
 
     if found_usernames:
-        reference_id = "notification-" + getattr(obj, field, 'reference_id')
+        referenceid = + getattr(obj, 'UID', '')
+        reference_id = f"notification-{referenceid}"
         for user in found_usernames:
             if api.user.get(username=user):
                 notify_users.add(user)
@@ -51,20 +55,20 @@ def handler(obj, event):
         results = api.content.find(id=reference_id, path={'query': '/'.join(container.getPhysicalPath()), 'depth': 1})
 
         if results:
-            existing_notification = results[0].getObject()
+            object = results[0].getObject()
 
             # Avoid re-notifying existing users
             existing_notify_users = set(existing_notification.notify_users or [])
             new_notify_users = notify_users - existing_notify_users
 
             if new_notify_users:
-                existing_notification.notify_users = list(notify_users),
-                existing_notification.reindexObject()
+                object.notify_users = list(notify_users),
+                object.reindexObject()
         else:
             # Create new notification
-            obj = api.content.create(
+            object = api.content.create(
                 type='Notification',
-                title='Mentions',
+                title=f'Mentions{obj.Title()}',
                 id=reference_id,
                 message=RichTextValue('You have been mentioned'),
                 notification_type='info',
@@ -91,7 +95,7 @@ def handler(obj, event):
         for user_id in notify_users:
             api.user.grant_roles(
                 username=user_id,
-                obj=obj,
+                obj=object,
                 roles=['Reader'],
             )                 
 

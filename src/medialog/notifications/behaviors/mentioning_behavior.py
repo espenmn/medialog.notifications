@@ -14,18 +14,18 @@ class IMentioningBehavior(model.Schema):
     """Behavior interface with a schema.List field."""
 
     # form.mode(mentioned_users="hidden")
-    mentioned_users = schema.List(
-        title=u"Mentioned Users",
-        value_type=schema.TextLine(),
-        required=False,
-        default=[]
-    )
+    #mentioned_users = schema.List(
+    #    title=u"Mentioned Users",
+    #    value_type=schema.TextLine(),
+    #    required=False,
+    #    default=[]
+    #)
     
     # form.mode(reference_uid ="hidden")
-    reference_id = schema.TextLine(
-        title=u"Reference UID",
-        required=False,
-    )
+    #reference_id = schema.TextLine(
+    #    title=u"Reference UID",
+    #    required=False,
+    #)
 
 class IMentioningBehaviorMarker(Interface):
     """Marker interface applied to instances"""
