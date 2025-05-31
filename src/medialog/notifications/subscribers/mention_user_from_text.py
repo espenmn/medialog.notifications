@@ -31,15 +31,14 @@ def handler(obj, event):
         if isinstance(value, str):
             found_usernames.update(MENTION_RE.findall(value))
             
-            
     import pdb; pdb.set_trace()
 
     if found_usernames:
-        referenceid = + getattr(obj, 'UID', '')
+        referenceid = obj.UID()
         reference_id = f"notification-{referenceid}"
-        for user in found_usernames:
-            if api.user.get(username=user):
-                notify_users.add(user)
+        for username in found_usernames:
+            if api.user.get(username=username):
+                notify_users.add(username)
                 
         portal = api.portal.get()                
         container =  portal.get('notifications', portal)
@@ -58,7 +57,7 @@ def handler(obj, event):
             object = results[0].getObject()
 
             # Avoid re-notifying existing users
-            existing_notify_users = set(existing_notification.notify_users or [])
+            existing_notify_users = set(object.notify_users or [])
             new_notify_users = notify_users - existing_notify_users
 
             if new_notify_users:

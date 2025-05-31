@@ -27,7 +27,7 @@ def handler(obj, event):
     """ Event handler
     """
     # NOTE: if you modify the Notificaion, users who have read the Noteification are re-added
-    notify_users =  obj.notify_users or set()
+    notify_users =  set(obj.notify_users) or set()
     
     
     # add users from 'variable field'
