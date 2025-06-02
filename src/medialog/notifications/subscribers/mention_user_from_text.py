@@ -69,12 +69,18 @@ def handler(obj, event):
                 type='Notification',
                 title=f'Mentions{obj.Title()}',
                 id=reference_id,
-                message=RichTextValue('You have been mentioned'),
+                message = RichTextValue(
+                    f'You have been mentioned in a document that has been modified: <a href="{obj.absolute_url()}">Check here</a>',
+                    'text/html',
+                    'text/html'
+                ),
                 notification_type='info',
                 notify_users=list(notify_users),
                 notification_assigned=[],
                 container=container,
             )
+            
+            
         
         
         #obj = api.content.create(
