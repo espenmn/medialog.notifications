@@ -51,5 +51,6 @@ def notify_usersIndexer(obj):
                 users.append(groupmember.getId())
         
     if users:
-        return set(users)
+        res = [x for sublist in users for x in sublist]  
+        return list(set(res))
     
