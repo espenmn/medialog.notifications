@@ -31,8 +31,6 @@ def handler(obj, event):
         if isinstance(value, str):
             found_usernames.update(MENTION_RE.findall(value))
             
-    import pdb; pdb.set_trace()
-
     if found_usernames:
         referenceid = obj.UID()
         reference_id = f"notification-{referenceid}"
