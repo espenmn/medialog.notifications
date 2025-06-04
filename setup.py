@@ -53,8 +53,7 @@ setup(
         # -*- Extra requirements: -*-
         'z3c.jbot',
         'plone.api>=1.8.4',
-        'plone.app.dexterity',
-        'medialog.dutchmantheme'
+        'plone.app.dexterity'
     ],
     extras_require={
         'test': [
