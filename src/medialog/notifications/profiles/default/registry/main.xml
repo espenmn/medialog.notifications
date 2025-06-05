@@ -21,7 +21,7 @@
     <value key="last_compilation">2016-01-01 00:00:00</value>
     <value key="compile">False</value>
     <value key="depends">plone</value>
-    <value key="merge_with">logged-in</value> 
+    <value key="merge_with">logged-in</value>
   </records>
 
 
@@ -39,14 +39,14 @@
   <!-- notification types -->
   <record name="medialog.notifications.notification_types">
     <field type="plone.registry.field.List">
-     <value_type type="plone.registry.field.TextLine"/>
+      <value_type type="plone.registry.field.TextLine"/>
     </field>
-      <value>
-        <element>info</element>
-        <element>warning</element>
-        <element>error</element>
-        <element>mention</element>
-      </value>
+    <value>
+      <element>error</element>
+      <element>warning</element>
+      <element>info</element>
+      <element>mention</element>
+    </value>
   </record>
 
 
@@ -67,7 +67,7 @@
 
 
   <!-- -*- Querystring -*- -->
- 
+
   <records interface="plone.app.querystring.interfaces.IQueryField" prefix="plone.app.querystring.field.notification_type">
     <value key="title">Notification Message type</value>
     <value key="description">Notification Message type</value>
@@ -143,7 +143,7 @@
     <value>plone.app.vocabularies.Users</value>
   </record>
 
- <!-- -*- Querystring -*- -->
+  <!-- -*- Querystring -*- -->
 
 
   <record name="plone.app.querystring.field.notify_users.description" interface="plone.app.querystring.interfaces.IQueryField" field="description">
