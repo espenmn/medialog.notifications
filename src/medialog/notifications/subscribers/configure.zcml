@@ -3,7 +3,7 @@
     i18n_domain="medialog.notifications">
 
 
-  <subscriber for="medialog.notifications.behaviors.mentioning_behavior.IMentioningBehaviorMarker
+  <subscriber for="medialog.notifications.behaviors.mentioning_behavior.IMentioningBehavior
                     zope.lifecycleevent.interfaces.IObjectAddedEvent"
               handler=".mention_user_from_text.handler"
               />
