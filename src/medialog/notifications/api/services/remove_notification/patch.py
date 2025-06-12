@@ -17,17 +17,16 @@ class RemoveNotification(object):
         self.request = request
 
     def __call__(self, expand=False):
-        # result = {
-        #     'remove_notification': {
-        #         '@id': '{}/@remove_notification'.format(
-        #             self.context.absolute_url(),
-        #         ),
-        #     },
-        # }
+        result = {
+            'remove_notification': {
+                '@id': '{}/@remove_notification'.format(
+                    self.context.absolute_url(),
+                ),
+            },
+        }
         
-        #TO DO: Probably remove this part and above
-        # if not expand:
-        #     return result
+        if not expand:
+            return result
 
         
         # TO DO: Not sure why / if we should use try
