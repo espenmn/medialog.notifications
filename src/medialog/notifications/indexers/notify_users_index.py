@@ -51,6 +51,10 @@ def notify_usersIndexer(obj):
                 users.append(groupmember.getId())
         
     if users:
-        res = [x for sublist in users for x in sublist]  
-        return list(set(res))
+        return users
+        # import pdb; pdb.set_trace()
+        # #res = [x for sublist in users for x in sublist]  
+        # userset = set(users)
+        # list(userset)
+        # return list(set(users))
     
