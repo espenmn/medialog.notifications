@@ -66,7 +66,7 @@ class EmailNotificationView(BrowserView):
               # Alternatively, just add the type and date ??
               
             messagetext = f"""<div class="notification-viewlet portalMessage statusmessage statusmessage-info alert alert-info">
-                      <a title="see noticitions" href="{api.portal.get().absolute_url()}/notifications-view">
+                      <a title="see noticitions" href="{api.portal.get().absolute_url()}/notifications">
                            You have <b>{count}</b> new notification(s). <b>Click to see</b></a>
                   </div>""" + messages
  
