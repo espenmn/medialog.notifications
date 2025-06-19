@@ -17,7 +17,7 @@ def handler(obj, event):
     """
     
     # Maybe find fields from control panel ?
-    fields_to_check = ['text', 'description']
+    fields_to_check = ['text', 'full_explanation', 'notes', 'description']
     found_usernames = set()
     notify_users = set()
 
