@@ -6,7 +6,7 @@
     <metal:content-core fill-slot="content-core">
       <metal:block define-macro="content-core">
         <tal:define tal:define="user view/get_user|None">
-        
+        asdfasdfasdf
 
           <!-- <p>TO DO, show only 'assigned to me'</p> -->
           <!-- <p>TO DO: Should only be possible to delete if it is 'only for me'</p> -->
@@ -70,6 +70,11 @@
                           .alert- {background: whitesmoke}
                           .alert a {text-decoration: none !important}
                           .text-right {text-align: right;}
+                           #main-container {
+                            display: flex;
+                            flex-direction: column-reverse;
+                            width: 100% ;
+                          }
           </style>
 
 

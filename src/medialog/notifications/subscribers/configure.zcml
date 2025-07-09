@@ -17,6 +17,7 @@
                    zope.lifecycleevent.interfaces.IObjectAddedEvent"
               handler=".notification_handler.handler"
               />
+              
   <subscriber for="medialog.notifications.content.notification.INotification
                    zope.lifecycleevent.interfaces.IObjectModifiedEvent"
               handler=".notification_handler.handler"
