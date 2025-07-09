@@ -146,16 +146,29 @@ PATTERN_OPTIONS = {
     }
 } 
 
+
 @provider(IContextAwareDefaultFactory)
 def notify_to(context=None):
     """Default factory for the to field."""
     request = getRequest()
     notify_to = request.get('notify_to', None)  # Get 'date' parameter from request
-    if notify_to and notify_to != 'admin' and api.user.get(userid=notify_to):
-        # To do: DO we need to find/check user?
-        # return as set?
-        return {notify_to}
+    if notify_to:
+        notify_tos =  notify_to.split(',')
+        valid_users = set()
+        for to in notify_tos:
+            to = to.strip()
+            if to != 'admin':                
+                if api.user.get(userid=to):
+                    valid_users.add(to)        
+        return valid_users
     return None  # Fallback i
+
+def filter_factory(context=None):
+    if notify_to():
+        return False
+    return True
+
+
 
 def filter_factory(context=None):
     if notify_to():
