@@ -21,24 +21,24 @@ def handler(obj, event):
     """
     
     # Maybe find fields from control panel ?
-    fields_to_check = ['text', 'body', 'full_explanation', 'notes', 'Description', 'description']
+    # fields_to_check = ['text', 'body', 'full_explanation', 'notes', 'Description', 'description']
+    fields_to_check = ['text', 'body', 'full_explanation', 'Description', 'description']
     found_usernames = set()
     notify_users = []
     # if IDexterityContent.providedBy(obj):
     #     schema = obj.getTypeInfo().lookupSchema()
-    
-    for field in fields_to_check:
-        for schema in iterSchemata(obj):
-            print('  %s' % schema)
-            for field in getFieldsInOrder(schema):
-                print('    %s\t%s' % field)                    
-                if field in getFields(schema):
-                    value = getattr(obj, field, '')
+    if obj.Type() == 'Comment':
+        value = obj.text
+        found_usernames.update(MENTION_RE.findall(value))       
+    else:
+        for schema in iterSchemata(obj):                    
+            for name, field in getFieldsInOrder(schema):
+                if name in fields_to_check:  
+                    value = getattr(obj, name, '')
                     if isinstance(value, dict) and 'data' in value:  # RichText
                         value = value['data']
                     elif hasattr(value, 'output'):  # RichTextValue
                         value = value.output
-
                     if isinstance(value, str):
                         found_usernames.update(MENTION_RE.findall(value))
             
@@ -104,6 +104,6 @@ def create_note(title, referense_id, url, notify_users, container):
                 ),
                 notification_type='mention',
                 notify_users=notify_users,
-                notification_assigned=[],
+                notification_assigned=None,
                 container=container,
             )

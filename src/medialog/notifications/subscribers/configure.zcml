@@ -2,6 +2,17 @@
     xmlns="http://namespaces.zope.org/zope"
     i18n_domain="medialog.notifications">
 
+  <subscriber
+    for="plone.app.discussion.comment.Comment
+         zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    handler=".mention_user_from_text.handler"
+  />
+
+  <subscriber
+    for="plone.app.discussion.comment.Comment
+         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".mention_user_from_text.handler"
+  />
 
   <subscriber for="medialog.notifications.behaviors.mentioning_behavior.IMentioningBehavior
                     zope.lifecycleevent.interfaces.IObjectAddedEvent"
